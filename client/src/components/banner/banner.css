@@ -1,0 +1,56 @@
+/* Main Banner Section */
+.offer-banner-img {
+  background: url("https://images.pexels.com/photos/3856220/pexels-photo-3856220.jpeg?auto=compress")
+    center/cover no-repeat;
+  height: 350px;
+  margin-top: 40px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pink Overlay */
+.overlay {
+  background: linear-gradient(135deg, var(--theme-light), #ffffff);
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Title */
+.banner-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+/* Subtitle */
+.banner-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Button */
+.banner-btn {
+  padding: 12px 30px;
+  background: white;
+  color: rgb(255, 0, 149);
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.banner-btn:hover {
+  transform: translateY(-3px);
+  background: #ffe1f4;
+}

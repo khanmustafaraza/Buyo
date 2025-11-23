@@ -1,0 +1,44 @@
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: rgb(247, 14, 150);
+  color: white;
+  padding: 8px 0;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 50px; /* spacing between items */
+  white-space: nowrap;
+  animation: scroll-left 18s linear infinite;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: max-content; /* Ensures proper spacing */
+}
+
+.icon {
+  font-size: 18px;
+  color: red; /* yellow icon for contrast */
+}
+
+/* Animation */
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause on hover */
+.marquee:hover .marquee-content {
+  animation-play-state: paused;
+}

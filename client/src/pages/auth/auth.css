@@ -1,0 +1,100 @@
+.auth-container {
+  min-height: 100vh;
+  background: #fff;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(255, 0, 149, 0.18);
+  border: 1px solid rgba(255, 0, 149, 0.25);
+}
+
+.auth-title {
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 5px;
+  color: rgb(255, 0, 149);
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: #777;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.auth-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+  color: #444;
+}
+
+/* Input Box Styling */
+.auth-input {
+  border-radius: 8px;
+  padding: 10px 12px;
+  padding-left: 40px; /* space for icon */
+  border: 1.5px solid #ddd;
+  transition: 0.3s;
+}
+
+.auth-input:focus {
+  border-color: rgb(255, 0, 149);
+  box-shadow: 0 0 5px rgba(255, 0, 149, 0.4);
+}
+
+/* Left-side Icons */
+.auth-icon {
+  position: absolute;
+  top: 37px;
+  left: 12px;
+  font-size: 16px;
+  color: rgb(255, 0, 149);
+}
+
+/* Password Eye Icon */
+.auth-eye {
+  position: absolute;
+  top: 37px;
+  right: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  color: rgb(255, 0, 149);
+}
+
+.auth-eye:hover {
+  color: rgb(230, 0, 135);
+}
+
+/* Button */
+.auth-btn {
+  background: rgb(255, 0, 149);
+  color: white;
+  border: none;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.auth-btn:hover {
+  background: rgb(230, 0, 135);
+  transform: translateY(-2px);
+}
+
+.auth-switch {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-switch a {
+  color: rgb(255, 0, 149);
+  font-weight: 600;
+}

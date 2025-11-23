@@ -1,0 +1,112 @@
+.account-dashboard {
+  display: flex;
+  gap: 20px;
+  padding: 30px 10%;
+  background: #f8f8f8;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+  width: 250px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  height: fit-content;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.dashboard-sidebar h3 {
+  margin-bottom: 15px;
+}
+
+.dashboard-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard-sidebar ul li {
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.dashboard-sidebar ul li:hover,
+.dashboard-sidebar ul li.active {
+  background: #2874f0;
+  color: white;
+}
+
+/* Content */
+.dashboard-content {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Profile */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+/* Orders */
+.order-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.delivered { color: green; font-weight: bold; }
+.shipped { color: orange; font-weight: bold; }
+
+/* Addresses */
+.address-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.address-card button {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border: none;
+  background: #2874f0;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.address-card .delete {
+  background: red;
+}
+
+.add-address {
+  width: 100%;
+  padding: 10px;
+  background: #f0f0f0;
+  border: 1px dashed #2874f0;
+  cursor: pointer;
+}
+
+/* Settings */
+.logout-btn {
+  background: red;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

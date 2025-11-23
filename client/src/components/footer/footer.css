@@ -1,0 +1,24 @@
+.footer-section {
+  background: #fff;
+  border-top: 3px solid var(--theme-color);
+}
+
+.footer-title {
+  color: var(--theme-color);
+  font-weight: 600;
+}
+
+.footer-icon {
+  color: var(--theme-color);
+  font-size: 1.2rem;
+}
+
+.footer-btn {
+  background: var(--theme-color);
+  color: #fff;
+  border: none;
+}
+
+.footer-btn:hover {
+  background: var(--theme-dark);
+}

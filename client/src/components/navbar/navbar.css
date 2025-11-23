@@ -1,0 +1,56 @@
+/* Navbar Background */
+.navbar {
+  background: #ffffff;
+}
+
+/* Search Box */
+.navbar .form-control {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+}
+
+/* Cart Badge */
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: rgb(255, 0, 149);
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 50%;
+}
+
+/* Icon Style – thin, not bold, minimalist */
+.nav-icon {
+  font-size: 1.3rem;
+  color: #444;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.nav-icon:hover {
+  color: rgb(255, 0, 149);
+}
+
+/* Cart Badge */
+.cart-badge {
+  background: rgb(255, 0, 149);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+
+.icon-outline {
+  fill: transparent !important; /* no fill color */
+  stroke: gray !important; /* only outline black */
+  stroke-width: 35; /* thickness */
+  font-size: 23px;
+  cursor: pointer;
+  font-weight: bold;
+  /* border: 2px solid black; */
+}

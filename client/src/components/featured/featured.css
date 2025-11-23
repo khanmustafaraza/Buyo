@@ -1,0 +1,48 @@
+.features-section {
+  background: #fff;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: rgb(255, 0, 149);
+}
+
+/* Feature Cards */
+.feature-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 0, 149, 0.18);
+  border: 1px solid rgba(255, 0, 149, 0.25);
+}
+
+/* Hover Animation */
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(255, 0, 149, 0.35);
+}
+
+/* Icons */
+.icon {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  color: rgb(255, 0, 149);
+}
+
+/* Headings */
+.feature-card h5 {
+  font-weight: 700;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* Text */
+.feature-card p {
+  font-size: 0.95rem;
+  margin-top: 5px;
+  color: #555;
+}

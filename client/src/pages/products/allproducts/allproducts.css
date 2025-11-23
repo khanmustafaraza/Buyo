@@ -1,0 +1,161 @@
+/* ===== MAIN LAYOUT ===== */
+.shop-section {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #f1f3f6;
+}
+
+/* ===== SIDEBAR ===== */
+.flip-sidebar {
+  width: 240px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  height: fit-content;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-title {
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.sidebar-block {
+  margin-bottom: 20px;
+}
+
+.sidebar-block h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sidebar-block label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0;
+}
+
+/* ===== PRODUCTS SECTION ===== */
+.flip-products {
+  flex: 1;
+}
+
+.products-header {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+/* ===== GRID ===== */
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.flip-card {
+  background: white;
+  border-radius: 10px;
+  padding: 4px;
+  transition: 0.25s ease;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: 1px solid transparent;
+}
+
+.flip-card:hover {
+  transform: translateY(-4px);
+  border-color: #2874f0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== IMAGE ===== */
+.flip-img-box {
+  height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-img-box img {
+  max-height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* ===== TEXT ===== */
+.flip-info {
+  margin-top: 10px;
+}
+
+.product-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  height: 38px;
+  overflow: hidden;
+}
+
+.flip-rating {
+  font-size: 13px;
+  color: #388e3c;
+  font-weight: 600;
+}
+
+.flip-price {
+  margin-top: 5px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111;
+}
+
+.mrp {
+  margin-left: 6px;
+  text-decoration: line-through;
+  color: #777;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.discount {
+  margin-left: 6px;
+  color: #388e3c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.brand {
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* VEG/NON VEG BADGE */
+.veg-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 600;
+  color: white;
+}
+
+.veg {
+  background: #2e7d32;
+}
+.nonveg {
+  background: #c62828;
+}

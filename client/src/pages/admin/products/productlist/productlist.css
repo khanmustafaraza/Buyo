@@ -1,0 +1,89 @@
+.product-list-container {
+  padding: 20px;
+  width: 100%;
+}
+
+/* ✅ wrapper keeps table scrollable */
+.table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* ✅ professional table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1200px; /* force horizontal scroll on smaller screens */
+}
+
+.product-table th,
+.product-table td {
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid black;
+  padding: 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.product-table th {
+  background: #121213;
+  color: white;
+  /* font-weight: 600; */
+}
+
+.product-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.rating-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 14px;
+}
+.star.filled,
+.star.half {
+  color: #ffc107;
+}
+.star.empty {
+  color: #ccc;
+}
+
+.badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.badge.discount {
+  background: #ffe0e0;
+  color: #d9534f;
+}
+.badge.veg {
+  background: #e0ffe0;
+  color: #28a745;
+}
+.badge.nonveg {
+  background: #ffe0e0;
+  color: #c82333;
+}
+
+.actions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 4px;
+}
+.edit-btn {
+  color: #007bff;
+}
+.delete-btn {
+  color: #dc3545;
+}

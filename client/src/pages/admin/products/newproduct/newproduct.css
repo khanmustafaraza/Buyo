@@ -1,0 +1,41 @@
+.new-product-card {
+  border-radius: 20px !important;
+  background: #ffffff;
+}
+
+.new-product-card .card-header {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.4);
+}
+
+.btn-success {
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s;
+  padding: 8px 23px;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  /* transform: scale(1.05); */
+}
+
+.new-product-card .col-md-6, 
+.new-product-card .col-md-4 {
+  padding-left: 4px;
+  padding-right: 4px;
+}

@@ -1,0 +1,49 @@
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Gradient Title */
+.dashboard-title {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2a5dff, #00c9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+/* Stat Cards */
+.stat-card {
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(42, 93, 255, 0.2) !important;
+}
+
+.icon-box {
+  font-size: 24px;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chart Cards */
+.chart-card {
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+.chart-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) !important;
+}
+.card-header {
+  font-size: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #2a5dff;
+}

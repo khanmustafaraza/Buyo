@@ -1,0 +1,527 @@
+import { Navigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) return <Navigate to="/login" replace />;
+
+  try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      localStorage.removeItem("token");
+      return <Navigate to="/login" replace />;
+    }
+  } catch (err) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children; // ✅ token valid, render page
+};
+   <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="categoryDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Categories
+              </a>
+
+              <ul
+                className="dropdown-menu mega-menu border-0 shadow p-3"
+                aria-labelledby="categoryDropdown"
+              >
+                <div className="container">
+                  <div className="row">
+                    {/* Column 1 */}
+                    <div className="col-12 col-sm-6 col-md-4 mb-3">
+                      <h6 className="fw-bold">Tools & Equipment</h6>
+                      <a className="dropdown-item" href="#">
+                        Hand Tools
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Power Tools
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Cutting Tools
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Measuring Tools
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Safety Gear
+                      </a>
+                    </div>
+
+                    {/* Column 2 */}
+                    <div className="col-12 col-sm-6 col-md-4 mb-3">
+                      <h6 className="fw-bold">Fasteners & Fixings</h6>
+                      <a className="dropdown-item" href="#">
+                        Nuts & Bolts
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Screws
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Washers
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Rivets
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Wall Anchors
+                      </a>
+                    </div>
+
+                    {/* Column 3 */}
+                    <div className="col-12 col-sm-6 col-md-4 mb-3">
+                      <h6 className="fw-bold">Iron & Metal</h6>
+                      <a className="dropdown-item" href="#">
+                        Iron Sheets
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Iron Rods
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Steel Bars
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Grill Materials
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Pipes & Tubes
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </ul>
+            </li>
+
+export default PrivateRoute;
+
+Learn aggregation, indexing, relations (one-to-many), and GridFS (for file uploads).
+nsert → inserted_id
+
+Update → matched_count & modified_count
+
+Delete → deleted_count
+
+
+try {
+    // const decoded = jwtDecode(token);
+    // console.log(decoded);
+
+    // ✅ check if token expired
+    // const currentTime = Date.now() / 1000;
+    // console.log(currentTime);
+    // if (decoded.exp < currentTime) {
+    //   localStorage.removeItem("token");
+    //   return <Navigate to="/login" replace />;
+    // }
+
+    // // ✅ check if user is admin
+    // if (decoded.role !== "admin") {
+    //   return <Navigate to="/" replace />;
+    }
+  } catch (err) {
+    return <Navigate to="/login" replace />;
+  }
+
+{
+  "name": "Aashirvaad Whole Wheat Atta",
+  "category": "Grains & Flours",
+  "subCategory": "Wheat Flour",
+  "brand": "Aashirvaad",
+  "sku": "ASH-ATTA-5KG",
+  "unit": "5kg",
+  "price": 280,
+  "discountPrice": 250,
+  "stock": 120,
+  "images": ["atta1.jpg", "atta2.jpg"],
+  "description": "Pure whole wheat atta, no maida added.",
+  "tags": ["atta", "wheat", "flour", "grains"],
+  "expiryDate": "2025-06-01",
+  "status": "active",
+  "isFeatured": true
+}
+
+import React, { useEffect, useState } from "react";
+import AdminLayout from "../../../../layouts/adminlayout/AdminLayout";
+import "./newproduct.css";
+import { useCategory } from "../../../../context/CategoryContext";
+import { useProduct } from "../../../../context/ProductContext";
+
+const NewProduct = () => {
+  // * use auth for category
+  const { state, getAllCategories } = useCategory();
+  const {
+    state: {
+      productField: {
+        name,
+        price,
+        colors,
+        discount,
+        size,
+        weight,
+        stock,
+
+        brand,
+        rating,
+        desc,
+      },
+    },
+    handleProductChange,
+    handleProductSubmit,
+  } = useProduct();
+
+  // todo useEffect for getting all categories
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+
+  return (
+    <AdminLayout>
+      <div className="new-product-container">
+        <h2>Add New Product</h2>
+        <form
+          onSubmit={handleProductSubmit}
+          className="new-product-form grid-layout"
+        >
+          <div className="form-group">
+            <label>Category Name</label>
+            <select name="catname" onChange={handleProductChange}>
+              <option>Categroy Name</option>
+              {state &&
+                state.categories.map((curEle, index) => {
+                  return (
+                    <option key={curEle._id} value={curEle.name}>
+                      {curEle.name}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Sub-Category Name</label>
+            <select name="subcatname" onChange={handleProductChange}>
+              <option>Sub-Categroy Name</option>
+              {state &&
+                state.categories.map((curEle, index) => {
+                  return (
+                    <option value={curEle.subname} key={curEle._id}>
+                      {curEle.subname}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          {/* Product Name */}
+          <div className="form-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleProductChange}
+              placeholder="Enter product name"
+              required
+            />
+          </div>
+
+          {/* Price */}
+          <div className="form-group">
+            <label>Price</label>
+            <input
+              type="number"
+              name="price"
+              value={price}
+              onChange={handleProductChange}
+              placeholder="Enter price"
+              required
+            />
+          </div>
+          {/* Colors */}
+          <div className="form-group">
+            <label>Colors</label>
+            <input
+              type="text"
+              name="colors"
+              value={colors}
+              onChange={handleProductChange}
+              placeholder="Enter Colors Of Product"
+              required
+            />
+            <strong>Each Color is Seprated By Comma</strong>
+          </div>
+
+          {/* Discount */}
+          <div className="form-group">
+            <label>Discount (%)</label>
+            <input
+              type="number"
+              name="discount"
+              value={discount}
+              onChange={handleProductChange}
+              placeholder="Enter discount"
+            />
+          </div>
+          {/* Size */}
+          <div className="form-group">
+            <label>Sizes</label>
+            <input
+              type="text"
+              name="size"
+              value={size}
+              onChange={handleProductChange}
+              placeholder="Enter Sizes Of Product"
+            />
+            <strong>Each Size is Seprated by Comma</strong>
+          </div>
+          {/* 
+      
+        brand,
+        rating, */}
+
+          {/* Brand */}
+          <div className="form-group">
+            <label>Weight</label>
+            <input
+              type="text"
+              name="weight"
+              value={weight}
+              onChange={handleProductChange}
+              placeholder="Enter Weight Of Product"
+            />
+          </div>
+
+          {/* SKU */}
+          <div className="form-group">
+            <label>In Stock</label>
+            <input
+              type="number"
+              name="stock"
+              value={stock}
+              onChange={handleProductChange}
+              placeholder="Enter the quantity of stock"
+            />
+          </div>
+
+          {/* Stock */}
+          <div className="form-group">
+            <label>Brand</label>
+            <input
+              type="text"
+              name="brand"
+              value={brand}
+              onChange={handleProductChange}
+              placeholder="Enter Brands Of Product"
+              required
+            />
+            <strong>Each Brand Is Sperated by Comma</strong>
+          </div>
+
+          {/* rating */}
+          <div className="form-group">
+            <label>Rating</label>
+            <input
+              type="text"
+              name="rating"
+              value={rating}
+              onChange={handleProductChange}
+              placeholder="0-5"
+            />
+          </div>
+
+          {/* Description (Full Width) */}
+          <div className="form-group full-width">
+            <label>Description</label>
+            <textarea
+              name="desc"
+              value={desc}
+              onChange={handleProductChange}
+              placeholder="Enter product description"
+              required
+            ></textarea>
+          </div>
+
+          {/* Images Upload (Full Width) */}
+          <div className="form-group full-width">
+            <label>Upload Images</label>
+            <input
+              type="file"
+              name="images"
+              multiple
+              accept="image/*"
+              onChange={handleProductChange}
+            />
+            <div className="image-preview">
+              {/* {images.map((img, index) => (
+                <div className="preview-item" key={index}>
+                  <img src={img} alt={`preview-${index}`} />
+                  <button
+                    type="button"
+                    onClick={() => handleImageRemove(index)}
+                    className="remove-btn"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))} */}
+            </div>
+          </div>
+
+          {/* Submit Button (Full Width) */}
+          <div className="form-group full-width">
+            <button type="submit" className="submit-btn">
+              Add Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </AdminLayout>
+  );
+};
+
+export default NewProduct;
+
+@product_bp.route('/create-new-product', methods=["POST"])
+def create_new_product():
+    # data = request.get_json()
+    catname = request.form.get("catname")
+    catname = request.form.get("catname")
+    subcatname = request.form.get("subcatname")
+    name = request.form.get("name")
+    brandname = request.form.get("brandname")
+    mrp = request.form.get("mrp")
+    discount = request.form.get("discount")
+    sp = request.form.get("sp")
+    worv = request.form.get("worv")
+    manufacturingDate = request.form.get("manufacturingDate")
+    expiryDate = request.form.get("expiryDate")
+    vegornon = request.form.get("vegornon")
+    remark = request.form.get("remark")
+    description = request.form.get("description")
+    rating = request.form.get("rating")
+    photo = request.files.get("photo")
+    # print("read?????????????",Binary(photo.read()))
+    print(secure_filename("kallu"))
+    print(catname)
+    #  catname,
+    #     subcatname,
+    #     name,
+    #     brandname,
+    #     mrp,
+    #     discount,
+    #     sp,
+    #     unit,
+    #     worv,
+
+    #     manufacturingDate,
+    #     expiryDate,
+    #     vegornon,
+    #     remark,
+    #     description,
+    #     rating,
+    # ✅ Get form data
+    # catname = request.form.get("catname")
+    # subcatname = request.form.get("subcatname")
+    # name = request.form.get("name")
+    # price = request.form.get("price")
+    # colors = request.form.get("colors", "")
+    # discount = request.form.get("discount")
+    # size = request.form.get("size", "")
+    # weight = request.form.get("weight")
+    # stock = request.form.get("stock")
+    # brand = request.form.get("brand", "")
+    # rating = request.form.get("rating")
+    # desc = request.form.get("desc")
+
+    # # ✅ Convert comma-separated strings to arrays
+    # colors = [c.strip() for c in colors.split(",")] if colors else []
+    # size = [s.strip() for s in size.split(",")] if size else []
+    # brand = [b.strip() for b in brand.split(",")] if brand else []
+
+    # # ✅ Handle multiple image uploads
+    # files = request.files.getlist("images")
+    # saved_images = []
+
+    # for file in files:
+    #     if file and allowed_file(file.filename):
+    #         filename = secure_filename(file.filename)
+    #         file_content = file.read()  # ✅ Read only once
+    #         image_dic = {
+    #             "file_name": filename,
+    #             "content_type": file.content_type,
+    #             "data": Binary(file_content)
+    #         }
+    #         saved_images.append(image_dic)
+
+    # # ✅ Create product document
+    # product_doc = {
+    #     "catname": catname,
+    #     "subcatname": subcatname,
+    #     "name": name,
+    #     "price": price,
+    #     "colors": colors,
+    #     "discount": discount,
+    #     "size": size,
+    #     "weight": weight,
+    #     "stock": stock,
+    #     "images": saved_images,  # Stored in MongoDB
+    #     "brand": brand,
+    #     "rating": rating,
+    #     "desc": desc
+    # }
+
+    # res = connect_db("products").insert_one(product_doc)
+
+    return jsonify({
+        "success": True,
+        "msg": "Product added successfully",
+        # "product_id": str(res.inserted_id)
+    }), 201
+
+
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+
+const AdminRoute = () => {
+  const token = localStorage.getItem("token");
+  // const [ok, setOk] = useState(null); // null = loading, true = ok, false = not ok
+  const [ok, setOk] = useState(true); // null = loading, true = ok, false = not ok
+
+  if (!token) return <Navigate to="/login" replace />;
+
+  useEffect(() => {
+    const validateToken = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/admin/admin-auth", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.status === 200) {
+          const data = await res.json();
+          setOk(data.isAdmin);
+        } else {
+          localStorage.removeItem("token");
+          setOk(false);
+        }
+      } catch (err) {
+        console.log(err);
+        setOk(false);
+      }
+    };
+    validateToken();
+  }, []);
+
+  // while waiting for API, you can show loading spinner
+  if (ok === null) return <div>Loading...</div>;
+
+  return ok ? <Outlet /> : <Navigate to="/login" replace />;
+};
+
+export default AdminRoute;
