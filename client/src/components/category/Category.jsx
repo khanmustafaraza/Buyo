@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const Category = () => {
   const { state, getAllCategories } = useCategory();
-  console.log(state);
+ 
   useEffect(() => {
     getAllCategories();
   }, []);

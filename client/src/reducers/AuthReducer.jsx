@@ -9,16 +9,16 @@ const AuthReducer = (state, action) => {
     case HANDLE_REGISTER_CHANGE:
       return {
         ...state,
-        registerField: {
-          ...state.registerField,
+        register: {
+          ...state.register,
           [action.payload.name]: action.payload.value,
         },
       };
     case HANDLE_LOGIN_CHANGE:
       return {
         ...state,
-        loginField: {
-          ...state.loginField,
+        login: {
+          ...state.login,
           [action.payload.name]: action.payload.value,
         },
       };

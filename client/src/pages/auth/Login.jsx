@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./auth.css";
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+ const {state,handleLoginChange,handleLoginSubmit} =  useAuth()
 
   return (
+   <>
+   <Navbar/>
     <div className="auth-container d-flex justify-content-center align-items-center">
       <div className="auth-card">
         <h2 className="auth-title">Welcome Back</h2>
         <p className="auth-subtitle">Login to continue shopping</p>
 
-        <form>
+        <form onSubmit={handleLoginSubmit}>
           {/* Email */}
           <div className="mb-3 position-relative">
             <label className="auth-label">Email</label>
@@ -22,6 +28,9 @@ const Login = () => {
               type="email"
               className="form-control auth-input with-icon"
               placeholder="Enter your email"
+              name="email"
+              value={state.login.email}
+              onChange={handleLoginChange}
             />
           </div>
 
@@ -33,6 +42,9 @@ const Login = () => {
             </span>
 
             <input
+            name="password"
+            onChange={handleLoginChange}
+            value={state.login.password}
               type={showPassword ? "text" : "password"}
               className="form-control auth-input with-icon"
               placeholder="Enter your password"
@@ -54,6 +66,8 @@ const Login = () => {
         </form>
       </div>
     </div>
+   <Footer/>
+   </>
   );
 };
 

@@ -21,6 +21,7 @@ const registerSchema = new Schema(
       minlength: 8, // Security: enforce min length
       select: false, // Hide password by default
     },
+    addresses :[],
     isAdmin: {
       type: Boolean,
       default: false,

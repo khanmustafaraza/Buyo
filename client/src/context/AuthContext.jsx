@@ -10,17 +10,16 @@ const AuthAppContext = createContext();
 
 const initialState = {
   isLoading: false,
-  registerField: {
+  register: {
     name: "",
-
     email: "",
     password: "",
   },
-  loginField: {
+  login: {
     email: "",
     password: "",
   },
-  token: localStorage.getItem("token") || "",
+  token:  "",
 };
 // ? ????????????????????????? auth provider function
 
@@ -28,6 +27,13 @@ const AuthAppProvider = ({ children }) => {
   // todo use navigate
 
   const navigate = useNavigate();
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    dispatch({
+      type:"SET_TOKEN",
+      payload:token
+    })
+  },[])
 
   // ? *************use reducers***************
 
@@ -66,8 +72,8 @@ const AuthAppProvider = ({ children }) => {
       type: "SET_LOADING",
     });
     try {
-      const { registerField } = state;
-      const { name, email, password } = registerField;
+      const { register } = state;
+      const { name, email, password } = register;
       const { data } = await axios.post(
         "http://localhost:5000/api/auth/new-register",
         {
@@ -93,8 +99,8 @@ const AuthAppProvider = ({ children }) => {
   // ?================================ handle login submit============================
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const { loginField } = state;
-    const { email, password } = loginField;
+    const { login } = state;
+    const { email, password } = login;
     dispatch({
       type: "SET_LOADING",
     });
@@ -106,9 +112,9 @@ const AuthAppProvider = ({ children }) => {
           password,
         }
       );
-
+        console.log(data.token)
       if (data.success) {
-        console.log(data);
+        console.log(data.token);
         dispatch({
           type: "SET_TOKEN",
           payload: data.token,

@@ -1,14 +1,27 @@
 import React from "react";
-import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaHeart, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 import "./navbar.css";
+import { FaBagShopping } from "react-icons/fa6";
+import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
 
 const Navbar = () => {
+  const { state } = useAuth();
+ const{cartItems} =  useCart()
+  console.log(state.token);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
       <div className="container">
-        <a className="navbar-brand fw-bold" href="#">
-          IronHardware
-        </a>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "navbar-brand fw-bold isactive" : "navbar-brand fw-bold"
+          }
+        >
+          Buyo Store
+        </NavLink>
 
         <button
           className="navbar-toggler"
@@ -22,28 +35,32 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <a className="nav-link active" href="#">
+              <NavLink
+                to="/home"
+                className={({ isActive }) => {
+                  return isActive ? "isactive" : "nav-link";
+                }}
+              >
                 Home
-              </a>
+              </NavLink>
             </li>
 
             <li className="nav-item dropdown">
-              <a
+              <span
                 className="nav-link dropdown-toggle"
-                href="#"
                 role="button"
                 data-bs-toggle="dropdown"
               >
                 Shop
-              </a>
+              </span>
 
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    All Products
-                  </a>
+                  <NavLink className="dropdown-item" to="/products">
+                    Products
+                  </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <a className="dropdown-item" href="#">
                     New Arrivals
                   </a>
@@ -57,26 +74,31 @@ const Navbar = () => {
                   <a className="dropdown-item" href="#">
                     Bulk Orders
                   </a>
-                </li>
+                </li> */}
               </ul>
             </li>
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="#">
                 Deals
               </a>
-            </li>
-
+            </li> */}
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink
+                to="/contact"
+                className={({ isActive }) => {
+                  return isActive ? "isactive" : "nav-link";
+                }}
+              >
                 Contact
-              </a>
+              </NavLink>
             </li>
           </ul>
 
           {/* Right Icons */}
           <div className="d-flex align-items-center gap-3 flex-wrap">
             {/* Search Box */}
+
             <input
               type="text"
               className="form-control"
@@ -86,40 +108,51 @@ const Navbar = () => {
 
             {/* Wishlist Icon */}
             {/* Wishlist */}
-            <div className="position-relative">
+            {/* <div className="position-relative">
               <FaHeart className="icon-outline" title="WhistList" />
-            </div>
+            </div> */}
 
             {/* Cart */}
-            <div className="position-relative">
-              <FaShoppingCart className="icon-outline" title="WhistList" />
-              <span className="cart-badge">3</span>
-            </div>
+            <NavLink
+              to="/cart"
+              className={({ isActive }) => {
+                return isActive ? "isactive" : "nav-link";
+              }}
+            >
+              <div className="position-relative">
+                <FaBagShopping className="icon-outline" title="Bag" />
+                <span className="cart-badge">{cartItems.length}</span>
+              </div>
+            </NavLink>
 
             {/* Profile */}
             <ul className="navbar-nav me-auto">
               <li className="nav-item dropdown">
-                <li
+                <span
                   className="nav-link dropdown-toggle"
                   role="button"
                   data-bs-toggle="dropdown"
                 >
                   <FaUser
                     className="icon-outline"
-                    title={<div className="bg-danger text-danger">Title</div>}
+                    title={<div className="bg-danger text-danger">Profile</div>}
                   />
-                </li>
+                </span>
 
                 <ul className="dropdown-menu">
+                  {state?.token ? (
+                    "welcome"
+                  ) : (
+                    <li>
+                      <NavLink className="dropdown-item" to="/login">
+                        Login
+                      </NavLink>
+                    </li>
+                  )}
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Login
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
+                    <NavLink className="dropdown-item" to="/user-details">
                       Address
-                    </a>
+                    </NavLink>
                   </li>
                 </ul>
               </li>

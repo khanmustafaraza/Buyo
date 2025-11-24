@@ -525,3 +525,4 @@ const AdminRoute = () => {
 };
 
 export default AdminRoute;
+  "react-image-magnify": "^2.7.4",
