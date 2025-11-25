@@ -2,14 +2,22 @@ import React, { useEffect, useState } from "react";
 import "./productdetails.css";
 import MainLayout from "../../../../layouts/mainlayout/MainLayout";
 import { useProduct } from "../../../../context/ProductContext";
-import { NavLink, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../../../../context/CartContext";
+import { useAuth } from "../../../../context/AuthContext";
 
 const ProductDetails = () => {
-  const [quantity, setQuantity] = useState(1);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const { handleCartAdded, isBag } = useCart();
+  const navigate = useNavigate();
+  const { handleCartItemAdded, quantity, handleQuantity } = useCart();
+  const {
+    state: { token },
+  } = useAuth();
+
+  // const [quantity, setQuantity] = useState(1);
+  // const [activeIdx, setActiveIdx] = useState(0);
+  // const { handleCartAdded, isBag } = useCart();
   const { id } = useParams();
+  const pathName = useLocation().pathname;
   const { getProductDetail, state } = useProduct();
   const product = state.product || {};
 
@@ -17,10 +25,8 @@ const ProductDetails = () => {
     getProductDetail(id);
   }, [id]);
 
-  const thumbnails = product.photos || new Array(4).fill(null); // fallback
-
-  const handleQty = (type) =>
-    setQuantity((q) => Math.max(1, type === "inc" ? q + 1 : q - 1));
+  // const handleQty = (type) =>
+  //   setQuantity((q) => Math.max(1, type === "inc" ? q + 1 : q - 1));
 
   return (
     <MainLayout>
@@ -31,22 +37,6 @@ const ProductDetails = () => {
               src={`http://localhost:5000/api/photo/get-all-photo/${product._id}`}
               alt={product.name}
             />
-          </div>
-
-          <div className="flip-a-thumbs">
-            {/* show small thumbnails (for demo we reuse same endpoint) */}
-            {[0, 1, 2, 3].map((t, i) => (
-              <div
-                key={i}
-                className={`thumb ${i === activeIdx ? "active" : ""}`}
-                onMouseEnter={() => setActiveIdx(i)}
-              >
-                <img
-                  src={`http://localhost:5000/api/photo/get-all-photo/${product._id}`}
-                  alt={`thumb-${i}`}
-                />
-              </div>
-            ))}
           </div>
         </div>
 
@@ -97,27 +87,31 @@ const ProductDetails = () => {
 
           <div className="qty-row">
             <div className="qty-controls">
-              <button onClick={() => handleQty("dec")}>-</button>
+              <button onClick={() => handleQuantity("dec")}>-</button>
               <span>{quantity}</span>
-              <button onClick={() => handleQty("inc")}>+</button>
+              <button onClick={() => handleQuantity("inc")}>+</button>
             </div>
 
             <div className="actions">
-              {isBag ? (
+              {/* {isBag ? (
                 <NavLink to="/cart" className="btn go">
                   Go to Bag
                 </NavLink>
               ) : (
-                <button
-                  className="btn add"
-                  onClick={() =>
-                    handleCartAdded(product._id, quantity, product.sp)
+               
+              )} */}
+              <button
+                className="btn add"
+                onClick={() => {
+                  if (token) {
+                    handleCartItemAdded(product._id, quantity, product.sp);
+                  } else {
+                    navigate(`/login?redirect=${pathName}`);
                   }
-                >
-                  Add to Cart
-                </button>
-              )}
-              <button className="btn buy">Buy Now</button>
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
 

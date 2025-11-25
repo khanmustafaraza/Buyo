@@ -15,6 +15,9 @@ const categoryRouter = require("./routers/category-router");
 const productRouter = require("./routers/product-router");
 const photoRouter = require("./routers/photo-router");
 
+// todo cart Router
+const cartRouter = require("./routers/cart-router");
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -34,6 +37,7 @@ app.use("/api/category", categoryRouter);
 // ? all product routes api endpoints
 app.use("/api/product", productRouter);
 app.use("/api/photo", photoRouter);
+app.use("/api/cart", authMiddleware, cartRouter);
 
 // * this is the root for home page
 app.get("/", (req, res) => {

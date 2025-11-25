@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
 
@@ -9,93 +9,60 @@ const CartAppProvider = ({ children }) => {
     state: { token },
   } = useAuth();
 
-  const [cartItems, setCartItems] = useState([]);
-  const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [isBag, setIsBag] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [carts, setCart] = useState([]);
 
-  // Add item to cart
-  const handleCartAdded = (id, quantity, price) => {
-    setCart((prevCart) => {
-      const existing = prevCart.find((item) => item.id === id);
-      if (existing) {
-        alert(
-          "This item is already in your bag. Quantity will be increased by " +
-            quantity
-        );
-        return prevCart.map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      } else {
-        return [...prevCart, { id, quantity, price }];
+  const handleCartItemAdded = async (pid, quantity, price) => {
+    const { data } = await axios.post(
+      "http://localhost:5000/api/cart/create-cart",
+      { pid, quantity, price },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
-    setIsBag(true);
+    );
+    alert(data.msg);
   };
 
-  // Save cart to localStorage whenever it changes
-  React.useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  const handleQuantity = (type) => {
+    setQuantity((prev) => {
+      if (type === "inc") return prev + 1;
+      return prev > 1 ? prev - 1 : 1;
+    });
+  };
 
-  // Fetch product data from API and populate cartItems
-  const getCartData = async () => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const getAllCartItems = async () => {
+    if (!token) return;
 
-    const promises = storedCart.map(async (cur) => {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:5000/api/product/get-product/${cur.id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-
-        if (data.success) {
-          return { ...data.data, quantity: cur.quantity };
-        }
-        return null;
-      } catch (err) {
-        console.error("Error fetching cart item:", err);
-        return null;
+    const { data } = await axios.get(
+      "http://localhost:5000/api/cart/get-all-cart-items",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
 
-    const results = await Promise.all(promises);
-    console.log(results);
-
-    // Remove nulls and duplicates (by _id)
-    // const uniqueItems = Array.from(
-    //   new Map(results.filter(Boolean).map((item) => [item._id, item])).values()
-    // );
-
-    setCartItems(results);
+    if (data.success) setCart(data.carts);
   };
 
-  // Remove item from cart
-  const removeItem = (id) => {
-    const updatedCartItems = cartItems.filter((item) => item._id !== id);
-    setCartItems(updatedCartItems);
-
-    const updatedCart = cart.filter((item) => item.id !== id);
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
+  // ⭐ FETCH CART WHEN TOKEN LOADED (after refresh)
+  useEffect(() => {
+    if (token) {
+      getAllCartItems();
+    }
+  }, [token]);
 
   return (
     <CartAppContext.Provider
       value={{
-        handleCartAdded,
-        isBag,
-        getCartData,
-        cart,
-        cartItems,
-        removeItem,
-        setCartItems,
+        handleCartItemAdded,
+        quantity,
+        handleQuantity,
+        getAllCartItems,
+        carts,
       }}
     >
       {children}

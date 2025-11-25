@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/AuthReducer";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthAppContext = createContext();
 
@@ -19,7 +19,7 @@ const initialState = {
     email: "",
     password: "",
   },
-  token:  "",
+  token: "",
 };
 // ? ????????????????????????? auth provider function
 
@@ -27,13 +27,15 @@ const AuthAppProvider = ({ children }) => {
   // todo use navigate
 
   const navigate = useNavigate();
-  useEffect(()=>{
+  const path = useLocation();
+  const redirect = path.search.split("?redirect=")[1];
+  useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch({
-      type:"SET_TOKEN",
-      payload:token
-    })
-  },[])
+      type: "SET_TOKEN",
+      payload: token,
+    });
+  }, []);
 
   // ? *************use reducers***************
 
@@ -112,7 +114,7 @@ const AuthAppProvider = ({ children }) => {
           password,
         }
       );
-        console.log(data.token)
+      console.log(data.token);
       if (data.success) {
         console.log(data.token);
         dispatch({
@@ -121,7 +123,7 @@ const AuthAppProvider = ({ children }) => {
         });
         localStorage.setItem("token", data.token);
         toast.success(data.msg);
-        navigate("/");
+        navigate(redirect ? redirect : "/");
       }
     } catch (error) {
       toast.error(error.response.data.msg);
