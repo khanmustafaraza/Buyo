@@ -41,7 +41,7 @@ const login = async (req, res, next) => {
   const existUser = await Register.findOne({ email }).select("+password");
 
   if (!existUser) {
-    next({ message: "Invalid Credentials Email Or Password" });
+    next({ message: "Invalid Credentials Email Or Password kallu this is that" });
   }
 
   const checkPassword = await comparePassword(password, existUser.password);

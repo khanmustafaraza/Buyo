@@ -10,7 +10,9 @@ const CartAppProvider = ({ children }) => {
   } = useAuth();
 
   const [quantity, setQuantity] = useState(1);
+   const[cartDelete,setCartDelete] = useState(false)
   const [carts, setCart] = useState([]);
+  const[address,setAddress] = useState([])
 
   const handleCartItemAdded = async (pid, quantity, price) => {
     const { data } = await axios.post(
@@ -45,7 +47,12 @@ const CartAppProvider = ({ children }) => {
       }
     );
 
-    if (data.success) setCart(data.carts);
+    if (data.success){
+      setCart(data.carts);
+      setAddress(data.user)
+
+    }
+      
   };
 
   // ⭐ FETCH CART WHEN TOKEN LOADED (after refresh)
@@ -55,6 +62,30 @@ const CartAppProvider = ({ children }) => {
     }
   }, [token]);
 
+  // handle Cart Item Deleted
+  const handleCartItemDeleted = async(id) =>{
+   if (!token) return;
+
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/cart/delete-cart-item/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if(data.success){
+      setCartDelete(!cartDelete)
+    }
+
+  
+
+  }
+
+   useEffect(() => {
+    getAllCartItems();
+  }, []);
+
   return (
     <CartAppContext.Provider
       value={{
@@ -63,6 +94,9 @@ const CartAppProvider = ({ children }) => {
         handleQuantity,
         getAllCartItems,
         carts,
+        handleCartItemDeleted,
+        cartDelete,
+        address
       }}
     >
       {children}

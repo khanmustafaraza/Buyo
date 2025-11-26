@@ -1,140 +1,208 @@
-.cart-wrapper {
-  padding: 20px;
-  background: #f1f3f6;
+/* Wrapper */
+.elegant-cart {
+  padding: 30px 50px;
+  background: #f6f7fb;
   min-height: 100vh;
   font-family: "Inter", sans-serif;
 }
 
-/* ADDRESS BOX */
-.address-box {
-  background: white;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 6px;
+/* Address Box */
+.elegant-address {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 15px;
-}
-
-.user-address {
-  margin: 0;
-  color: #555;
+  margin-bottom: 25px;
 }
 
 .change-btn {
-  margin-left: auto;
-  padding: 6px 14px;
-  background: #2874f0;
-  color: white;
+  background: #4b7bec;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-/* CART LAYOUT */
-.cart-container {
+/* Layout */
+.elegant-cart-container {
   display: flex;
-  gap: 20px;
+  gap: 25px;
 }
 
-.cart-left {
+/* LEFT */
+.elegant-left {
   width: 70%;
 }
 
-.cart-right {
-  width: 30%;
-}
-
-/* CART ITEM */
-.cart-item {
-  background: white;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 6px;
+/* Cart Card */
+.elegant-card {
   display: flex;
   gap: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  margin-bottom: 25px;
+}
+
+.img-box {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .item-img {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+/* Title */
+.item-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* Meta */
+.meta p {
+  margin: 2px 0;
+  color: #555;
+}
+
+.meta span {
+  font-weight: 500;
+}
+
+/* Price section */
+.price-section {
+  margin: 12px 0;
+}
+
+.sp {
+  color: #222;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.mrp {
+  margin-left: 10px;
+  text-decoration: line-through;
+  color: #888;
+}
+
+.discount {
+  margin-left: 10px;
+  color: #3ccf4e;
+  font-weight: 600;
+}
+
+/* Extra Details */
+.extra-details span {
+  margin-right: 15px;
+  padding: 4px 10px;
+  background: #f1f1f1;
   border-radius: 6px;
+  font-size: 13px;
 }
 
-.item-info h4 {
-  margin: 0;
-  font-size: 18px;
+.veg-tag.veg {
+  background: #d4f8d4;
+  color: #2f8f2f;
 }
 
-.item-price {
-  color: #333;
-  font-weight: bold;
-  margin-top: 5px;
+.veg-tag.nonveg {
+  background: #ffd8d8;
+  color: #d32f2f;
 }
 
-/* Quantity */
-.qty-controls {
+/* Qty Row */
+.qty-row {
+  margin: 15px 0;
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  gap: 12px;
 }
 
-.qty-controls button {
-  width: 28px;
-  height: 28px;
-  background: #eee;
+.qty-btn {
+  width: 35px;
+  height: 35px;
   border: none;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.qty-controls span {
-  margin: 0 10px;
-  font-weight: bold;
-}
-
-.remove-btn {
-  background: none;
-  color: #2874f0;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 5px;
-}
-
-/* SUMMARY BOX */
-.price-box {
-  background: white;
-  padding: 18px;
+  font-size: 20px;
   border-radius: 6px;
+  cursor: pointer;
+  background: #e8e8e8;
+}
+
+.qty-number {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Remove button */
+.elegant-remove {
+  margin-top: 10px;
+  background: transparent;
+  color: #d63031;
+  border: 1px solid #d63031;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.elegant-remove:hover {
+  background: #d63031;
+  color: white;
+}
+
+/* RIGHT */
+.elegant-right {
+  width: 30%;
+}
+
+.elegant-price-box {
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
 }
 
 .price-row {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0;
-  color: #333;
+  margin: 10px 0;
 }
 
 .green {
-  color: green;
+  color: #2ecc71;
 }
 
 .total {
   font-size: 18px;
-  margin-top: 10px;
+  color: #111;
 }
 
-.place-btn {
+/* Place order */
+.elegant-place-btn {
   width: 100%;
   margin-top: 20px;
-  background: #fb641b;
-  padding: 12px;
-  border: none;
+  background: #0984e3;
   color: white;
-  font-weight: bold;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
   font-size: 16px;
-  border-radius: 4px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.elegant-place-btn:hover {
+  background: #0652dd;
 }

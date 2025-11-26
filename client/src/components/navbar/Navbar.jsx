@@ -8,8 +8,8 @@ import { useCart } from "../../context/CartContext";
 
 const Navbar = () => {
   const { state } = useAuth();
-  const { cartItems } = useCart();
-  console.log(state.token);
+  const { carts } = useCart();
+  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
@@ -121,7 +121,7 @@ const Navbar = () => {
             >
               <div className="position-relative">
                 <FaBagShopping className="icon-outline" title="Bag" />
-                {/* <span className="cart-badge">{cartItems.length}</span> */}
+                <span className="cart-badge">{carts&&carts?.length}</span>
               </div>
             </NavLink>
 

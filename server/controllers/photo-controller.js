@@ -3,7 +3,7 @@ const Product = require("../models/product-model");
 const getProductPhoto = async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.log(id);
+  
 
     if (!id || id === "undefined") {
       return res

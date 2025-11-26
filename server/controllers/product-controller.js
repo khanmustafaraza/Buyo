@@ -28,7 +28,7 @@ const createProduct = async (req, res, next) => {
       description,
       rating,
     } = req.body;
-    console.log(packageType, unit);
+  
 
     // create product object
     const productData = {
