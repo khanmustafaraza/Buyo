@@ -6,6 +6,8 @@ import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const[activeAddress,setAcitveAddress]  = useState(null)
+  const [addressObj ,setAddressObj]   = useState(null)
   const {
     carts,
     increaseQty,
@@ -13,12 +15,11 @@ const Cart = () => {
     handleCartItemDeleted,
     getAllCartItems,
     cartDelete,
-    address
+    address,
   } = useCart();
-  
+
   const navigate = useNavigate();
-  console.log(address)
-  
+  console.log(address);
 
   const totalAmount = carts.reduce(
     (acc, item) => acc + item.product.sp * item.quantity,
@@ -30,8 +31,16 @@ const Cart = () => {
     getAllCartItems();
   }, [cartDelete]);
 
+  const handleAddressActive =(cur,index) =>{
+    // console.log(index)
+    setAcitveAddress(index)
+    setAddressObj(cur)
+  }
+  // console.log(activeAddress)
+  const handleAddressObj =()=>{
 
- 
+  }
+  console.log("addressobj",addressObj)
 
   return (
     <>
@@ -41,16 +50,31 @@ const Cart = () => {
         <div className="cart-wrapper elegant-cart">
           {/* Address Section */}
           <div className="address-box elegant-address">
-           {
-            address.length ==0? <button>Add Address</button>:<>
-            {
-              address.map((cur)=>{
-                return <>this</>
-              })
-            }
-            
-            </>
-           }
+            {address.length == 0 ? (
+              <button>Add Address</button>
+            ) : (
+              <>
+                <div className="address-strip">
+                  {address.map((cur, index) => (
+                    <div key={index} className={activeAddress==index?`address-card-strip activeBorder`:"address-card-strip"} onClick = {()=>handleAddressActive(cur,index)}>
+                      <div className="address-main">
+                        <strong>{cur.fullName}</strong> &nbsp;|&nbsp;{" "}
+                        {cur.mobile}
+                        {cur.email && <> &nbsp;|&nbsp; {cur.email}</>}
+                      </div>
+                      <div className="address-details">
+                        {cur.houseNo}, {cur.street}, {cur.city}, {cur.state} -{" "}
+                        {cur.pincode}
+                      </div>
+                      <div className="address-actions">
+                        <button className="btn edit-btn">Edit</button>
+                        <button className="btn delete-btn">Delete</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           <div className="cart-container elegant-cart-container">
@@ -83,7 +107,9 @@ const Cart = () => {
                     <div className="price-section">
                       <span className="sp">₹ {item.product.sp}</span>
                       <span className="mrp">₹ {item.product.mrp}</span>
-                      <span className="discount">{item.product.discount}% OFF</span>
+                      <span className="discount">
+                        {item.product.discount}% OFF
+                      </span>
                     </div>
 
                     <p className="description">{item.product.description}</p>
@@ -97,7 +123,9 @@ const Cart = () => {
                     </div>
 
                     <div className="date-row">
-                      <span>Mfg: {item.product.manufacturingDate?.slice(0, 10)}</span>
+                      <span>
+                        Mfg: {item.product.manufacturingDate?.slice(0, 10)}
+                      </span>
                       <span>Exp: {item.product.expiryDate?.slice(0, 10)}</span>
                     </div>
 
@@ -106,11 +134,17 @@ const Cart = () => {
                     </p>
 
                     <div className="qty-row">
-                      <button onClick={() => decreaseQty(item._id)} className="qty-btn">
+                      <button
+                        onClick={() => decreaseQty(item._id)}
+                        className="qty-btn"
+                      >
                         −
                       </button>
                       <span className="qty-number">{item.quantity}</span>
-                      <button onClick={() => increaseQty(item._id)} className="qty-btn">
+                      <button
+                        onClick={() => increaseQty(item._id)}
+                        className="qty-btn"
+                      >
                         +
                       </button>
                     </div>
@@ -154,7 +188,9 @@ const Cart = () => {
                   <strong>₹ {totalAmount - 200}</strong>
                 </div>
 
-                <button className="place-btn elegant-place-btn">PLACE ORDER</button>
+                <button className="place-btn elegant-place-btn">
+                  PLACE ORDER
+                </button>
               </div>
             </div>
           </div>
@@ -181,13 +217,21 @@ const Cart = () => {
               maxWidth: "450px",
             }}
           >
-            <h2 style={{ fontSize: "28px", marginBottom: "10px", fontWeight: 600 }}>
+            <h2
+              style={{
+                fontSize: "28px",
+                marginBottom: "10px",
+                fontWeight: 600,
+              }}
+            >
               Your Cart is Empty
             </h2>
 
-            <p style={{ fontSize: "15px", color: "#666", marginBottom: "25px" }}>
-              Looks like you haven’t added anything yet.  
-              Explore our products and start shopping!
+            <p
+              style={{ fontSize: "15px", color: "#666", marginBottom: "25px" }}
+            >
+              Looks like you haven’t added anything yet. Explore our products
+              and start shopping!
             </p>
 
             <button

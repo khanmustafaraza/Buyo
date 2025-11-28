@@ -17,6 +17,7 @@ const photoRouter = require("./routers/photo-router");
 
 // todo cart Router
 const cartRouter = require("./routers/cart-router");
+const addressRouter = require("./routers/address-router");
 
 const app = express();
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/photo", photoRouter);
 app.use("/api/cart", authMiddleware, cartRouter);
+app.use("/api/address", authMiddleware, addressRouter);
 
 // * this is the root for home page
 app.get("/", (req, res) => {

@@ -20,6 +20,16 @@ const initialState = {
     password: "",
   },
   token: "",
+  address: {
+    fullName: "",
+    mobile: "",
+    email: "",
+    houseNo: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
+  },
 };
 // ? ????????????????????????? auth provider function
 
@@ -131,6 +141,95 @@ const AuthAppProvider = ({ children }) => {
   };
   // ! ==============set token to local storage
 
+ 
+  const handleAddressChange = (e) => {
+    console.log(e.target);
+    dispatch({
+      type: "HANDLE_ADDRESS_CHANGE",
+      payload: {
+        name: e.target.name,
+        value: e.target.value,
+      },
+    });
+  };
+
+ const handleAddressSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const { address, token } = state;
+
+    if (!token) {
+      console.error("No token provided");
+      return;
+    }
+
+    const {
+      fullName,
+      mobile,
+      email,
+      houseNo,
+      street,
+      city,
+      state: userState,
+      pincode,
+      landmark,
+      instructions,
+      addressType,
+      isDefault,
+    } = address;
+
+    // SIMPLE VALIDATION (recommended)
+    if (
+      !fullName ||
+      !mobile ||
+      !email ||
+      !houseNo ||
+      !street ||
+      !city ||
+      !userState ||
+      !pincode
+    ) {
+      alert("Please fill all required fields.");
+      return;
+    }
+
+    const { data } = await axios.post(
+      "http://localhost:5000/api/address/add-address",
+      {
+        fullName,
+        mobile,
+        email,
+        houseNo,
+        street,
+        city,
+        state: userState,
+        pincode,
+        landmark,
+        instructions,
+        addressType,
+        isDefault,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (data.success) {
+      alert("Address saved successfully!");
+      console.log("Address saved:", data);
+
+      // OPTIONAL — CLEAR FORM
+      // setState({ ...state, address: {} });
+    }
+  } catch (error) {
+    console.error("Error saving address:", error);
+    alert("Something went wrong while saving the address.");
+  }
+};
+
   return (
     <AuthAppContext.Provider
       value={{
@@ -139,6 +238,8 @@ const AuthAppProvider = ({ children }) => {
         handleRegisterSubmit,
         handleLoginChange,
         handleLoginSubmit,
+       handleAddressSubmit,
+        handleAddressChange,
       }}
     >
       {children}

@@ -62,4 +62,24 @@ const login = async (req, res, next) => {
   });
 };
 
+
+const addAddress = async (req, res, next) => {
+  try {
+    const {fullName,
+    mobile,
+    email,
+    houseNo,
+    street,
+    city,
+    state,
+    pincode } = req.body;
+    console.log(req.body)
+    const id = req.user._id
+    console.log(id)
+
+  
+  } catch (error) {
+    next({ message: "Error while creating account", statusCode: 500 });
+  }
+};
 module.exports = { register, login };
