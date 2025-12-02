@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import MainLayout from "../../../layouts/mainlayout/MainLayout";
-import "./allproducts.css";
+import "./productcategory.css";
 import { useProduct } from "../../../context/ProductContext";
-import { NavLink } from "react-router-dom";
-import { useCategory } from "../../../context/CategoryContext";
+import { NavLink, useParams } from "react-router-dom";
 
-const AllProducts = () => {
-  const { state, getAllProducts ,categoryProduct} = useProduct();
- const {state:{categories}} = useCategory()
+const ProductCategory = () => {
+  const { state, categoryProduct } = useProduct();
+  const {name} = useParams()
 
   useEffect(() => {
-    getAllProducts();
-  }, []);
+    categoryProduct(name);
+  }, [name]);
 
   return (
     <MainLayout>
@@ -23,10 +22,10 @@ const AllProducts = () => {
           {/* Category */}
           <div className="sidebar-block">
             <h4>Category</h4>
-            {categories?.map(
+            {["Mobiles", "Electronics", "Fashion", "Home Appliances"].map(
               (item, i) => (
                 <label key={i}>
-                  <input type="checkbox" value={item.name} onChange={(e)=>categoryProduct(e.target.value)} /> {item.name}
+                  <input type="checkbox" /> {item}
                 </label>
               )
             )}
@@ -118,4 +117,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default ProductCategory;

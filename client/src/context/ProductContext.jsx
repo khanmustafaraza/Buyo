@@ -170,6 +170,31 @@ const ProductAppProvider = ({ children }) => {
     }
   };
 
+  const categoryProduct = async(name) =>{
+    console.log(name)
+      try {
+      const api = `http://localhost:5000/api/category-product-filter/get-all-category-product/${name}`;
+
+      const { data } = await axios.get(api, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data.data)
+
+      // console.log(data.singleProduct);
+        if (data.success) {
+        // console.log(data);
+        dispatch({
+          type: "GET_ALL_PRODUCTS",
+          payload: data.data,
+        });
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  }
+
   return (
     <ProductAppContext.Provider
       value={{
@@ -179,6 +204,7 @@ const ProductAppProvider = ({ children }) => {
         handleProductChange,
         handleProductSubmit,
         getAllProducts,
+        categoryProduct
       }}
     >
       {children}

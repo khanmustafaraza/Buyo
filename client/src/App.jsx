@@ -24,6 +24,7 @@ import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Contact from "./pages/contact/Contact";
 import { Bounce } from "react-toastify";
+import ProductCategory from "./pages/products/productcategory/ProductCategory";
 // ? admin routes end
 
 const App = () => {
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="/add-new-address" element={<Address />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/category-product-filter/:name" element={<ProductCategory />} />
         <Route path="/account-dashboard" element={<AccountDashboard />} />
 
         {/*✅ ================= todo all admin routes start ========== */}

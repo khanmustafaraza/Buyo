@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./productdetails.css";
 import MainLayout from "../../../../layouts/mainlayout/MainLayout";
 import { useProduct } from "../../../../context/ProductContext";
@@ -9,13 +9,8 @@ import { useAuth } from "../../../../context/AuthContext";
 const ProductDetails = () => {
   const navigate = useNavigate();
   const { handleCartItemAdded, quantity, handleQuantity } = useCart();
-  const {
-    state: { token },
-  } = useAuth();
+  const { state: { token } } = useAuth();
 
-  // const [quantity, setQuantity] = useState(1);
-  // const [activeIdx, setActiveIdx] = useState(0);
-  // const { handleCartAdded, isBag } = useCart();
   const { id } = useParams();
   const pathName = useLocation().pathname;
   const { getProductDetail, state } = useProduct();
@@ -25,40 +20,42 @@ const ProductDetails = () => {
     getProductDetail(id);
   }, [id]);
 
-  // const handleQty = (type) =>
-  //   setQuantity((q) => Math.max(1, type === "inc" ? q + 1 : q - 1));
-
   return (
     <MainLayout>
-      <div className="flip-a">
-        <div className="flip-a-left">
-          <div className="flip-a-main-image">
+      <div className="pd-wrapper">
+        {/* LEFT - Image */}
+        <div className="pd-left">
+          <div className="pd-image">
             <img
               src={`http://localhost:5000/api/photo/get-all-photo/${product._id}`}
               alt={product.name}
             />
+            {product.discount > 0 && (
+              <span className="discount-badge">{product.discount}% OFF</span>
+            )}
           </div>
         </div>
 
-        <div className="flip-a-right">
-          <h1 className="title">{product.name}</h1>
-          <div className="sub">
-            <span className="brand">{product.brandname}</span>
+        {/* RIGHT - Details */}
+        <div className="pd-right">
+          <h1 className="pd-title">{product.name}</h1>
+          <div className="pd-brand">
+            <span>{product.brandname}</span>
             <span className="assured">• Assured</span>
           </div>
 
-          <div className="rating">
+          <div className="pd-rating">
             <div className="score">{product.rating || 0} ★</div>
             <div className="reviews">(1,234 ratings)</div>
           </div>
 
-          <div className="price-row">
-            <div className="sp">₹{product.sp}</div>
-            <div className="mrp">₹{product.mrp}</div>
-            <div className="disc">{product.discount}% off</div>
+          <div className="pd-price">
+            <span className="sp">₹{product.sp}</span>
+            <span className="mrp">₹{product.mrp}</span>
+            {product.discount > 0 && <span className="disc">{product.discount}% off</span>}
           </div>
 
-          <div className="offers">
+          <div className="pd-offers">
             <h4>Offers</h4>
             <ul>
               <li>Bank Offer: 10% off on XYZ Bank cards</li>
@@ -66,7 +63,7 @@ const ProductDetails = () => {
             </ul>
           </div>
 
-          <div className="meta-grid">
+          <div className="pd-meta-grid">
             <div>
               <strong>Unit</strong>
               <div>{product.unit}</div>
@@ -85,37 +82,28 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className="qty-row">
+          <div className="pd-actions">
             <div className="qty-controls">
-              <button onClick={() => handleQuantity("dec")}>-</button>
+              <button onClick={() => handleQuantity("dec")}>−</button>
               <span>{quantity}</span>
               <button onClick={() => handleQuantity("inc")}>+</button>
             </div>
 
-            <div className="actions">
-              {/* {isBag ? (
-                <NavLink to="/cart" className="btn go">
-                  Go to Bag
-                </NavLink>
-              ) : (
-               
-              )} */}
-              <button
-                className="btn add"
-                onClick={() => {
-                  if (token) {
-                    handleCartItemAdded(product._id, quantity, product.sp);
-                  } else {
-                    navigate(`/login?redirect=${pathName}`);
-                  }
-                }}
-              >
-                Add to Cart
-              </button>
-            </div>
+            <button
+              className="btn-add"
+              onClick={() => {
+                if (token) {
+                  handleCartItemAdded(product._id, quantity, product.sp);
+                } else {
+                  navigate(`/login?redirect=${pathName}`);
+                }
+              }}
+            >
+              Add to Cart
+            </button>
           </div>
 
-          <div className="desc">
+          <div className="pd-desc">
             <h4>About this item</h4>
             <p>{product.description}</p>
           </div>

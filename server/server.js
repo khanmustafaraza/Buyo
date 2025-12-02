@@ -12,6 +12,7 @@ const isAdmin = require("./middlewares/admin-middleware");
 
 // todo ? category router
 const categoryRouter = require("./routers/category-router");
+const categoryProductRouter = require("./routers/category-product-router");
 const productRouter = require("./routers/product-router");
 const photoRouter = require("./routers/photo-router");
 
@@ -40,6 +41,7 @@ app.use("/api/product", productRouter);
 app.use("/api/photo", photoRouter);
 app.use("/api/cart", authMiddleware, cartRouter);
 app.use("/api/address", authMiddleware, addressRouter);
+app.use("/api/category-product-filter", authMiddleware, categoryProductRouter);
 
 // * this is the root for home page
 app.get("/", (req, res) => {

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import axios from "axios";
 import reducer from "../reducers/CategoryReducer";
 import { toast } from "react-toastify";
@@ -119,7 +119,9 @@ const CategoryAppProvider = ({ children }) => {
       toast.error("Delete failed");
     }
   };
-
+useEffect(()=>{
+getAllCategories()
+},[])
   return (
     <CategoryAppContext.Provider
       value={{
