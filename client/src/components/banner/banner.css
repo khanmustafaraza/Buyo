@@ -1,56 +1,135 @@
-/* Main Banner Section */
+/*======================================
+    MODERN OFFER BANNER 
+======================================*/
+
 .offer-banner-img {
-  background: url("https://images.pexels.com/photos/3856220/pexels-photo-3856220.jpeg?auto=compress")
-    center/cover no-repeat;
-  height: 350px;
-  margin-top: 40px;
-  border-radius: 12px;
+  background: url("banner.jpg") center/cover no-repeat;
+  height: 380px;
+  margin: 60px auto;
+  /* border-radius: 18px; */
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Pink Overlay */
+/* Frosted Glass Overlay */
 .overlay {
-  background: linear-gradient(135deg, var(--theme-light), #ffffff);
-  height: 100%;
+  background: rgb(29, 28, 28, 0.7);
+  backdrop-filter: blur(6px);
+  /* border-radius: 18px; */
   width: 100%;
-  border-radius: 12px;
+  height: 100%;
+  padding: 30px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  gap: 12px;
+
   text-align: center;
-  padding: 20px;
+  color: #fff;
+  animation: fadeIn 1.2s ease;
 }
 
-/* Title */
+/* Title Styling */
 .banner-title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin-bottom: 10px;
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.4);
+  animation: slideUp 1s ease forwards;
 }
 
 /* Subtitle */
 .banner-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+  font-size: 1.3rem;
+  opacity: 0.9;
+  max-width: 550px;
+  line-height: 1.6;
+  animation: slideUp 1.2s ease forwards;
 }
 
 /* Button */
 .banner-btn {
-  padding: 12px 30px;
-  background: white;
-  color: rgb(255, 0, 149);
-  border: none;
+  margin-top: 10px;
+  padding: 14px 38px;
   font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  border-radius: 5px;
+  background: var(--theme-color);
+  border: none;
+  color: white;
   cursor: pointer;
   transition: 0.3s ease;
+  box-shadow: 0px 0px 4px rgba(255, 0, 149, 0.35);
+  animation: fadeUp 1.4s ease;
 }
 
+/* Hover */
 .banner-btn:hover {
-  transform: translateY(-3px);
-  background: #ffe1f4;
+  /* transform: translateY(-4px) scale(1.05); */
+  background: white;
+  color: #ff4bb1;
+}
+
+/*======================================
+   RESPONSIVE
+======================================*/
+
+@media (max-width: 768px) {
+  .offer-banner-img {
+    height: 300px;
+  }
+
+  .banner-title {
+    font-size: 1.8rem;
+  }
+
+  .banner-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .banner-btn {
+    padding: 12px 28px;
+  }
+}
+
+/*======================================
+   ANIMATIONS
+======================================*/
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

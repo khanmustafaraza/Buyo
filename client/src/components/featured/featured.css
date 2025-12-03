@@ -1,147 +1,110 @@
-/* Footer wrapper */
-.footer-section {
-  background: #fff; /* white background like Myntra */
-  color: #555; /* dark gray text */
+/* Wrapper */
+.featured-section {
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, #ffffff, #f8f8f8);
   font-family: "Inter", sans-serif;
-  padding: 60px 20px 30px;
 }
 
-/* Container: multi-column cards */
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
+/* Title */
+.featured-header {
+  text-align: center;
+  margin-bottom: 50px;
 }
 
-/* Individual cards */
-.footer-card {
-  flex: 1 1 220px;
-  min-width: 220px;
-}
-
-/* Titles */
-.footer-brand {
-  font-size: 22px;
+.featured-header h2 {
+  font-size: 2.4rem;
   font-weight: 700;
-  margin-bottom: 10px;
   color: #222;
 }
 
-.footer-title {
-  font-size: 16px;
+.featured-header p {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 6px;
+  opacity: 0.8;
+}
+
+/* Flex Layout */
+.featured-flex {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+/* Card */
+.feature-card {
+  width: 260px;
+  text-align: center;
+  padding: 35px 25px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+
+  transition: all 0.35s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Glow */
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(255, 0, 149, 0.15);
+  border-color: #ff0080;
+}
+
+/* Growing glow ring */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: rgba(255, 0, 149, 0.18);
+  filter: blur(30px);
+  transition: 0.4s;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.feature-card:hover::before {
+  width: 160px;
+  height: 160px;
+}
+
+/* Icon */
+.feature-icon {
+  font-size: 45px;
+  color: #ff0080;
+  margin-bottom: 18px;
+  transition: 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.15);
+}
+
+/* Title */
+.feature-card h4 {
+  font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #222;
 }
 
 /* Text */
-.footer-text {
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.footer-text.small {
-  font-size: 13px;
-  color: #777;
-}
-
-/* Newsletter */
-.footer-newsletter {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.footer-input {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-.footer-btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  background: rgb(255, 0, 149);
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.footer-btn:hover {
-  background: #e600a3;
-}
-
-/* Quick Links */
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links li {
-  margin-bottom: 8px;
-}
-
-.footer-links li a {
-  color: #555;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-
-.footer-links li a:hover {
-  color: rgb(255, 0, 149);
-}
-
-/* Social Icons */
-.footer-social {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.footer-icon {
-  font-size: 20px;
-  color: #555;
-  transition: 0.3s ease;
-}
-
-.footer-icon:hover {
-  color: rgb(255, 0, 149);
-}
-
-/* Contact Info */
-.footer-contact {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #555;
-}
-
-/* Divider */
-.footer-divider {
-  border-top: 1px solid #eee;
-  margin: 30px 0 15px;
-}
-
-/* Bottom */
-.footer-bottom {
-  font-size: 13px;
-  color: #777;
-  text-align: center;
-  padding-bottom: 10px;
+.feature-card p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
 }
 
 /* Responsive */
-@media screen and (max-width: 1024px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 15px;
+@media (max-width: 768px) {
+  .feature-card {
+    width: 90%;
   }
 }

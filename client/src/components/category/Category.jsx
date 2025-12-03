@@ -11,29 +11,25 @@ const Category = () => {
   }, []);
 
   return (
-    <section className="category-section container py-5">
-      <h2 className="section-title">Shop by Category</h2>
+    <section className="category-section">
+      <div className="category-header container">
+        <h2>Shop by Category</h2>
+        <p>Find the best tools, accessories and products curated for you.</p>
+      </div>
 
-      <div className="cat-container">
-        {state.categories &&
-          state.categories.map((cat) => (
-            <NavLink
-              to={`/category-product-filter/${cat?.name}`}
-              key={cat._id}
-              className="category-link"
-            >
-              <div className="category-card">
-                <div className="img-wrapper">
-                  <img
-                    src={`data:image/jpeg;base64,${cat.photo}`}
-                    alt={cat.name}
-                    className="category-img"
-                  />
-                </div>
-                <h5 className="category-name text-capitalize">{cat.name}</h5>
-              </div>
-            </NavLink>
-          ))}
+      <div className="cat-flex">
+        {state?.categories?.map((cat) => (
+          <NavLink
+            to={`/category-product-filter/${cat?.name}`}
+            key={cat._id}
+            className="category-card"
+          >
+            <div className="category-img-box">
+              <img src={`data:image/jpeg;base64,${cat.photo}`} alt={cat.name} />
+            </div>
+            <h4 className="category-label">{cat.name}</h4>
+          </NavLink>
+        ))}
       </div>
     </section>
   );

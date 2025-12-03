@@ -9,7 +9,7 @@ const Banner = () => {
         <p className="banner-subtitle">
           Up to <strong>30% OFF</strong> on Premium Quality Hardware
         </p>
-        <button className="banner-btn">Shop Now</button>
+        <button className="banner-btn">Explore More</button>
       </div>
     </section>
   );

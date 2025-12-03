@@ -15,7 +15,8 @@ const Footer = () => {
       <div className="footer-container">
         {/* Company Info */}
         <div className="footer-card">
-          <h4 className="footer-brand">E KIRANA STORE</h4>
+          <h4 className="footer-brand">Buyo Store</h4>
+
           <p className="footer-text">
             Your trusted partner for premium hardware solutions and tools. We
             deliver high-quality products with excellent service.
@@ -89,7 +90,7 @@ const Footer = () => {
       <hr className="footer-divider" />
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} E KIRANA STORE. All Rights Reserved.
+        © {new Date().getFullYear()} Buyo Store. All Rights Reserved.
       </div>
     </footer>
   );

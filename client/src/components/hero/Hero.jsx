@@ -1,38 +1,33 @@
 import React from "react";
 import "./hero.css";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="hero-section d-flex align-items-center">
-      <div className="container">
-        <div className="row align-items-center">
-          {/* Left Content */}
-          <div className="col-md-6 hero-text">
-            <h1 className="hero-title">
-              Upgrade Your{" "}
-              <span className="highlight">Hardware Experience</span>
-            </h1>
+    <section className="hero-wrapper">
+      <div className="hero-container container">
+        {/* Left Section */}
+        <div className="hero-content">
+          <h1>
+            Upgrade Your <span className="glow-text">Shopping Experience</span>
+          </h1>
 
-            <p className="hero-subtitle">
-              Explore premium tools, durable materials, and modern equipment —
-              all in one trusted hardware store. Built for professionals &
-              homeowners.
-            </p>
+          <p>
+            Premium tools engineered for durability and efficiency — trusted by
+            professionals, builders, and creators. Quality isn’t a feature, it's
+            a standard.
+          </p>
 
-            <div className="button-group">
-              <button className="btn btn-hero">Shop Now</button>
-              <button className="btn btn-outline-hero">Explore More</button>
-            </div>
+          <div className="hero-buttons">
+            <NavLink to="/products">
+              <button className="primary-btn">Shop Now</button>
+            </NavLink>
           </div>
+        </div>
 
-          {/* Right Image */}
-          <div className="col-md-6 text-center mt-4 mt-md-0">
-            <img
-              src="hero1.png"
-              alt="Hardware Tools"
-              className="img-fluid hero-img"
-            />
-          </div>
+        {/* Right Image */}
+        <div className="hero-image">
+          <img src="hero1.png" alt="Hardware Tools" />
         </div>
       </div>
     </section>

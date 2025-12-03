@@ -1,6 +1,13 @@
 import React from "react";
-import { FaHeart, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import {
+  FaHamburger,
+  FaHeart,
+  FaSearch,
+  FaShoppingCart,
+  FaUser,
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { CiMenuFries } from "react-icons/ci";
 import "./navbar.css";
 import { FaBagShopping } from "react-icons/fa6";
 import { useAuth } from "../../context/AuthContext";
@@ -9,7 +16,6 @@ import { useCart } from "../../context/CartContext";
 const Navbar = () => {
   const { state } = useAuth();
   const { carts } = useCart();
-  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
@@ -29,11 +35,11 @@ const Navbar = () => {
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
         >
-          <span className="navbar-toggler-icon"></span>
+          <CiMenuFries className="navbar-toggler-icon" />
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
+          <ul className="navbar-nav mx-auto">
             <li className="nav-item">
               <NavLink
                 to="/home"
@@ -60,38 +66,7 @@ const Navbar = () => {
                     Products
                   </NavLink>
                 </li>
-                {/* <li>
-                  <a className="dropdown-item" href="#">
-                    New Arrivals
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Best Deals
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Bulk Orders
-                  </a>
-                </li> */}
               </ul>
-            </li>
-
-            {/* <li className="nav-item">
-              <a className="nav-link" href="#">
-                Deals
-              </a>
-            </li> */}
-            <li className="nav-item">
-              <NavLink
-                to="/contact"
-                className={({ isActive }) => {
-                  return isActive ? "isactive" : "nav-link";
-                }}
-              >
-                Contact
-              </NavLink>
             </li>
           </ul>
 
@@ -99,12 +74,14 @@ const Navbar = () => {
           <div className="d-flex align-items-center gap-3 flex-wrap">
             {/* Search Box */}
 
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search products..."
-              style={{ width: "250px" }}
-            />
+            <div className=" d-flex navbar-search align-items-center gap-1 py-2 px-3">
+              <FaSearch />
+              <input
+                type="text"
+                className=""
+                placeholder="Search Products..."
+              />
+            </div>
 
             {/* Wishlist Icon */}
             {/* Wishlist */}
@@ -121,7 +98,7 @@ const Navbar = () => {
             >
               <div className="position-relative">
                 <FaBagShopping className="icon-outline" title="Bag" />
-                <span className="cart-badge">{carts&&carts?.length}</span>
+                <span className="cart-badge">{carts && carts?.length}</span>
               </div>
             </NavLink>
 
@@ -141,7 +118,7 @@ const Navbar = () => {
 
                 <ul className="dropdown-menu">
                   {state?.token ? (
-                    "welcome"
+                    <li className="dropdown-item">Hello Adon</li>
                   ) : (
                     <li>
                       <NavLink className="dropdown-item" to="/login">

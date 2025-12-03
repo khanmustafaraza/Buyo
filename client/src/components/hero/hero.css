@@ -1,34 +1,110 @@
-.hero-section {
-  background: linear-gradient(135deg, var(--theme-light), #ffffff);
-  padding: 90px 0;
+/* ===== HERO SECTION ===== */
+.hero-wrapper {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #ff4d94, #b3b0b0 55%, #222);
+  /* background: linear-gradient(135deg, lightpink, #ffffff); */
+
+  color: white;
+  padding: 10px 10px;
 }
 
-.highlight {
-  color: var(--theme-color);
+.hero-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.btn-hero {
-  background: var(--theme-color);
-  color: #fff;
-  padding: 12px 28px;
-  border-radius: 8px;
+/* Text Section */
+.hero-content {
+  max-width: 540px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.glow-text {
+  background: linear-gradient(90deg, lightgray, #ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 0px 18px rgba(255, 193, 7, 0.35);
+}
+
+.hero-content p {
+  margin-top: 18px;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  line-height: 1.7;
+}
+
+/* Buttons */
+.hero-buttons {
+  margin-top: 28px;
+  display: flex;
+  gap: 18px;
+}
+
+.primary-btn {
+  background: #ffff;
+  color: #222;
+  padding: 14px 34px;
+  font-size: 1rem;
+  border-radius: 3px;
   border: none;
+  cursor: pointer;
+  font-weight: 600;
   transition: 0.3s;
 }
 
-.btn-hero:hover {
-  background: var(--theme-dark);
-}
-
-.btn-outline-hero {
-  border: 2px solid var(--theme-color);
-  color: var(--theme-color);
-  padding: 12px 28px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.btn-outline-hero:hover {
+.primary-btn:hover {
   background: var(--theme-color);
-  color: #fff;
+  transform: translateY(-4px);
+  color: white;
+}
+
+/* Image Styling */
+.hero-image img {
+  width: 500px;
+  filter: drop-shadow(0px 12px 35px rgba(255, 180, 0, 0.4));
+  animation: floating 3s infinite ease-in-out;
+}
+
+/* Smooth Floating Animation */
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-image img {
+    width: 350px;
+  }
+
+  .hero-container {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
 }

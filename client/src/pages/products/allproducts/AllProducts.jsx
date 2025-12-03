@@ -6,8 +6,10 @@ import { NavLink } from "react-router-dom";
 import { useCategory } from "../../../context/CategoryContext";
 
 const AllProducts = () => {
-  const { state, getAllProducts ,categoryProduct} = useProduct();
- const {state:{categories}} = useCategory()
+  const { state, getAllProducts, categoryProduct } = useProduct();
+  const {
+    state: { categories },
+  } = useCategory();
 
   useEffect(() => {
     getAllProducts();
@@ -23,13 +25,16 @@ const AllProducts = () => {
           {/* Category */}
           <div className="sidebar-block">
             <h4>Category</h4>
-            {categories?.map(
-              (item, i) => (
-                <label key={i}>
-                  <input type="checkbox" value={item.name} onChange={(e)=>categoryProduct(e.target.value)} /> {item.name}
-                </label>
-              )
-            )}
+            {categories?.map((item, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={item.name}
+                  onChange={(e) => categoryProduct(e.target.value)}
+                />{" "}
+                {item.name}
+              </label>
+            ))}
           </div>
 
           {/* Price */}
@@ -76,10 +81,11 @@ const AllProducts = () => {
             {state?.allProducts?.map((product) => (
               <NavLink
                 to={`/product-detail/${product._id}`}
-                key={product._id}
                 className="flip-card"
               >
-                {/* Image */}
+                {/* ❤️ Wishlist Icon */}
+                <div className="wishlist-btn">♡</div>
+
                 <div className="flip-img-box">
                   <img
                     src={`http://localhost:5000/api/photo/get-all-photo/${product._id}`}
@@ -87,28 +93,19 @@ const AllProducts = () => {
                   />
                 </div>
 
-                {/* Info */}
                 <div className="flip-info">
-                  <h3 className="product-title">{product.name}</h3>
-
-                  <div className="flip-rating">⭐ {product.rating}</div>
-
-                  <p className="flip-price">
-                    ₹{product.sp}
-                    <span className="mrp">₹{product.mrp}</span>
-                    <span className="discount">{product.discount}% off</span>
-                  </p>
-
                   <p className="brand">{product.brandname}</p>
+                  <p className="product-title">{product.name}</p>
 
-                  <span
-                    className={`veg-badge ${
-                      product.vegornon === "veg" ? "veg" : "nonveg"
-                    }`}
-                  >
-                    {product.vegornon}
-                  </span>
+                  <div className="price-row">
+                    <span className="final-price">₹{product.sp}</span>
+                    <span className="mrp">₹{product.mrp}</span>
+                    <span className="discount">{product.discount}% OFF</span>
+                  </div>
                 </div>
+
+                {/* Quick View Button */}
+                <button className="quick-view">Quick View</button>
               </NavLink>
             ))}
           </div>
