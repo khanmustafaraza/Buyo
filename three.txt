@@ -1,0 +1,203 @@
+import axios from "axios";
+
+const Payment = () => {
+  
+  const handlePayment = async () => {
+    const { data: order } = await axios.post("http://localhost:5000/create-order", {
+      amount: 500, // send cart total
+    });
+
+    const options = {
+      key: "YOUR_KEY_ID",
+      amount: order.amount,
+      currency: "INR",
+      name: "BuyOn Store",
+      description: "Order Payment",
+      order_id: order.id,
+      handler: function (response) {
+        console.log("Payment Success", response);
+      },
+      theme: {
+        color: "#1a73e8",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  return (
+    <button onClick={handlePayment}>
+      Pay Now
+    </button>
+  );
+};
+
+export default Payment;
+
+
+import express from "express";
+import Razorpay from "razorpay";
+import dotenv from "dotenv";
+import cors from "cors";
+
+dotenv.config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// 1️⃣ Initialize Razorpay Instance
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_SECRET,
+});
+
+// 2️⃣ Create Order Route
+app.post("/create-order", async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    const options = {
+      amount: amount * 100, // convert to paisa
+      currency: "INR",
+      receipt: "order_rcpt_" + Date.now(),
+    };
+
+    const order = await razorpay.orders.create(options);
+    res.json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+app.listen(5000, () => console.log("Server running on 5000"));
+
+npm install razorpay
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+const mongoose = require("mongoose");
+
+const OrderSchema = new mongoose.Schema(
+  {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+
+    items: [
+      {
+        productId: String,
+        title: String,
+        price: Number,
+        qty: Number,
+        image: String,
+      },
+    ],
+
+    amount: Number,
+    shippingCharges: Number,
+    finalAmount: Number,
+
+    address: {
+      name: String,
+      phone: String,
+      street: String,
+      city: String,
+      state: String,
+      pincode: String,
+    },
+
+    paymentInfo: {
+      orderId: String, // Razorpay order id
+      paymentId: String,
+      signature: String,
+    },
+
+    status: {
+      type: String,
+      enum: ["Pending", "Paid", "Failed", "Cancelled"],
+      default: "Pending",
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Order", OrderSchema);
+
+
+const options = {
+  key: RAZORPAY_KEY,
+  amount: order.amount,
+  name: "Buyo Store",
+  description: "Order Payment",
+  image: "/logo.png",
+  theme: {
+    color: "#0f172a",
+    backdrop_color: "#00000099"
+  },
+  config: {
+    display: {
+      blocks: {
+        card: {
+          name: "Pay using Card",
+          instruments: [{ method: "card" }],
+        },
+        upi: {
+          name: "UPI Apps",
+          instruments: [{ method: "upi" }],
+        },
+      },
+      sequence: ["card", "upi"],
+      preferences: {
+        show_default_blocks: false,
+      },
+    },
+  },
+};
+
+const order = new Order({
+  userId: req.body.userId,
+  items: req.body.items,
+  address: req.body.address,
+  amount: req.body.amount,
+  shippingCharges: req.body.shipping,
+  finalAmount: req.body.finalAmount,
+  paymentInfo: {
+    orderId: razorpayOrder.id   // returned from Razorpay API
+  },
+  status: "Pending"
+});
+
+await order.save();
+res.json(order);
+
+
+
+const order = new Order({
+  userId: req.body.userId,
+  items: req.body.items,
+  address: req.body.address,
+  amount: req.body.amount,
+  shippingCharges: req.body.shipping,
+  finalAmount: req.body.finalAmount,
+  paymentInfo: {
+    orderId: razorpayOrder.id   // returned from Razorpay API
+  },
+  status: "Pending"
+});
+
+await order.save();
+res.json(order);
+
+
+const handlePlaceOrder = async () => {
+  // 1️⃣ Call backend to create order
+  const orderData = await createOrder();
+
+  // 2️⃣ Open Razorpay popup
+  openRazorpay(orderData);
+};
+
+

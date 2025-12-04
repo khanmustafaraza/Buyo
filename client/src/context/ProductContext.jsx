@@ -8,7 +8,7 @@ import { useAuth } from "./AuthContext";
 const ProductAppContext = createContext();
 const initialState = {
   allProducts: [],
-   allProductsBackup: [],
+  allProductsBackup: [],
   product: {},
   productField: {
     catname: "",
@@ -171,9 +171,9 @@ const ProductAppProvider = ({ children }) => {
     }
   };
 
-  const categoryProduct = async(name) =>{
-    console.log(name)
-      try {
+  const categoryProduct = async (name) => {
+    console.log(name);
+    try {
       const api = `http://localhost:5000/api/category-product-filter/get-all-category-product/${name}`;
 
       const { data } = await axios.get(api, {
@@ -181,10 +181,10 @@ const ProductAppProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data.data)
+      console.log(data.data);
 
       // console.log(data.singleProduct);
-        if (data.success) {
+      if (data.success) {
         // console.log(data);
         dispatch({
           type: "GET_ALL_PRODUCTS",
@@ -194,29 +194,49 @@ const ProductAppProvider = ({ children }) => {
     } catch (error) {
       toast.error(error);
     }
-  }
+  };
 
-  const handleCategoryFilter = (value,check)=>{
+  const handleCategoryFilter = (value, check) => {
     dispatch({
-      type:"HANDLE_CATEGORY_FILTER",
-      payload:{
-          value:value,
-          check:check
-      }
-    })
-  }
+      type: "HANDLE_CATEGORY_FILTER",
+      payload: {
+        value: value,
+        check: check,
+      },
+    });
+  };
 
+  const handleInputFilter = (e) => {
+    // console.log(e.target.value);
+
+    const { value } = e.target;
+    dispatch({
+      type: "HANDLE_INPUT_FILTER",
+      payload: { value },
+    });
+  };
+  const handlePriceFilter = (e) => {
+    console.log(e.target.value);
+    dispatch({
+      type: "HANDLE_PRICE_FILTER",
+      payload: {
+        value: e.target.value,
+      },
+    });
+  };
   return (
     <ProductAppContext.Provider
       value={{
         state,
         getProductDetail,
         handleCategoryFilter,
+        handlePriceFilter,
 
         handleProductChange,
         handleProductSubmit,
         getAllProducts,
-        categoryProduct
+        handleInputFilter,
+        categoryProduct,
       }}
     >
       {children}

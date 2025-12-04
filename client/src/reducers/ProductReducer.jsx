@@ -30,10 +30,11 @@ const reducer = (state, action) => {
     case "GET_ALL_PRODUCTS": {
       return {
         ...state,
-        allProducts: action.payload,
-        allProductsBackup: action.payload
+        allProducts: [...action.payload], // UI version
+        allProductsBackup: [...action.payload], // unchanged master copy
       };
     }
+
     case "GET_PRODUCT_DETAIL": {
       return {
         ...state,
@@ -163,32 +164,74 @@ const reducer = (state, action) => {
         allProduct: filterData,
       };
     }
-  case "HANDLE_CATEGORY_FILTER": {
-  const original = [...state.allProductsBackup]; // ALWAYS from original
-  const { value, check } = action.payload;
+    case "HANDLE_CATEGORY_FILTER": {
+      const original = [...state.allProductsBackup]; // ALWAYS from original
+      const { value, check } = action.payload;
 
-  console.log("checked:", check);
-  console.log("original:", original);
+      console.log("checked:", check);
+      console.log("original:", original);
 
-  // UNCHECK → reset to original full list
-  if (check === false) {
-    return {
-      ...state,
-      allProducts: original
-    };
-  }
+      // UNCHECK → reset to original full list
+      if (check === false) {
+        return {
+          ...state,
+          allProducts: original,
+        };
+      }
 
-  // CHECKED → filter
-  const filtered = original.filter(item => item.catname === value);
+      // CHECKED → filter
+      const filtered = original.filter((item) => item.catname === value);
 
-  return {
-    ...state,
-    allProducts: filtered
-  };
-}
+      return {
+        ...state,
+        allProducts: filtered,
+      };
+    }
+    case "HANDLE_INPUT_FILTER": {
+      const original = [...state.allProductsBackup];
+      const { value } = action.payload;
+      if (value == "") {
+        return {
+          ...state,
+          allProducts: original,
+        };
+      }
+      const filtered = original.filter((curEle) => {
+        return (
+          curEle.name.toLowerCase().includes(value.toLowerCase()) ||
+          curEle.description.toLowerCase().includes(value.toLowerCase()) ||
+          curEle.brandname.toLowerCase().includes(value.toLowerCase())
+        );
+      });
+      return {
+        ...state,
+        allProducts: filtered,
+      };
+    }
+    case "HANDLE_PRICE_FILTER": {
+      const value = action.payload.value;
+      const original = [...state.allProductsBackup];
 
+      if (value === "reset") {
+        return { ...state, allProducts: original };
+      }
 
+      if (value === "low to high") {
+        const sorted = [...original].sort(
+          (a, b) => parseFloat(a.sp) - parseFloat(b.sp)
+        );
+        return { ...state, allProducts: sorted };
+      }
 
+      if (value === "high to low") {
+        const sorted = [...original].sort(
+          (a, b) => parseFloat(b.sp) - parseFloat(a.sp)
+        );
+        return { ...state, allProducts: sorted };
+      }
+
+      return state;
+    }
 
     // SET_ALL_PRODUCT;
     default: {

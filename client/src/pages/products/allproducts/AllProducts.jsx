@@ -6,7 +6,8 @@ import { NavLink } from "react-router-dom";
 import { useCategory } from "../../../context/CategoryContext";
 
 const AllProducts = () => {
-  const { state, getAllProducts, handleCategoryFilter } = useProduct();
+  const { state, getAllProducts, handleCategoryFilter, handlePriceFilter } =
+    useProduct();
   const {
     state: { categories },
   } = useCategory();
@@ -14,6 +15,9 @@ const AllProducts = () => {
   useEffect(() => {
     getAllProducts();
   }, []);
+  const handleReset = () => {
+    window.location.reload();
+  };
 
   return (
     <MainLayout>
@@ -25,23 +29,18 @@ const AllProducts = () => {
           {/* Category */}
           <div className="sidebar-block">
             <h4>Category</h4>
-           {categories?.map((item, i) => (
-  <label key={i}>
-    <input
-      type="checkbox"
-      value={item.name}
-    
-     onChange={(e) => {
-  handleCategoryFilter(item.name, e.target.checked);
-}}
-
-    
-    />
-    {item.name}
-  </label>
-))}
-
-
+            {categories?.map((item, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={item.name}
+                  onChange={(e) => {
+                    handleCategoryFilter(item.name, e.target.checked);
+                  }}
+                />
+                {item.name}
+              </label>
+            ))}
           </div>
 
           {/* Price */}
@@ -68,6 +67,9 @@ const AllProducts = () => {
               </label>
             ))}
           </div>
+          <div className="reset">
+            <button onClick={handleReset}>Reset Filters</button>
+          </div>
         </aside>
 
         {/* ---------------- PRODUCTS GRID ---------------- */}
@@ -75,11 +77,11 @@ const AllProducts = () => {
           <div className="products-header">
             <h2 className="">Products</h2>
 
-            <select className="sort-select">
+            <select className="sort-select" onChange={handlePriceFilter}>
               <option>Sort by: Relevance</option>
-              <option>Price: Low to High</option>
-              <option>Price: High to Low</option>
-              <option>Newest First</option>
+              <option value="reset">Price:Reset</option>
+              <option value="low to high">Price: Low to High</option>
+              <option value="high to low">Price: High to Low</option>
             </select>
           </div>
 
@@ -103,10 +105,18 @@ const AllProducts = () => {
                 <div className="flip-info">
                   <p className="brand">{product.brandname}</p>
                   <p className="product-title">{product.name}</p>
-                  <p className="vegornon">{product.vegornon=="non-veg"?<span className="non">Non-Veg</span>:<span className="veg">Veg</span>}</p>
+                  <p className="vegornon">
+                    {product.vegornon == "non-veg" ? (
+                      <span className="non">Non-Veg</span>
+                    ) : (
+                      <span className="veg">Veg</span>
+                    )}
+                  </p>
 
                   <div className="price-row">
-                    <span className="final-price">₹{Number(product.sp).toFixed(2)}</span>
+                    <span className="final-price">
+                      ₹{Number(product.sp).toFixed(2)}
+                    </span>
                     <span className="mrp">₹{product.mrp}</span>
                     <span className="discount">{product.discount}% OFF</span>
                   </div>

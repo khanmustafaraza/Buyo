@@ -12,10 +12,12 @@ import "./navbar.css";
 import { FaBagShopping } from "react-icons/fa6";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
+import { useProduct } from "../../context/ProductContext";
 
 const Navbar = () => {
   const { state } = useAuth();
   const { carts } = useCart();
+  const { handleInputFilter } = useProduct();
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
@@ -78,8 +80,8 @@ const Navbar = () => {
               <FaSearch />
               <input
                 type="text"
-                className=""
                 placeholder="Search Products..."
+                onChange={handleInputFilter}
               />
             </div>
 
