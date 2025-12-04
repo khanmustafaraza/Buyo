@@ -3,9 +3,11 @@ import MainLayout from "../../../layouts/mainlayout/MainLayout";
 import "./productcategory.css";
 import { useProduct } from "../../../context/ProductContext";
 import { NavLink, useParams } from "react-router-dom";
+import { useCategory } from "../../../context/CategoryContext";
 
 const ProductCategory = () => {
   const { state, categoryProduct } = useProduct();
+  
   const {name} = useParams()
 
   useEffect(() => {
@@ -13,23 +15,12 @@ const ProductCategory = () => {
   }, [name]);
 
   return (
-    <MainLayout>
+   <MainLayout>
       <section className="shop-section">
         {/* ---------------- FILTER SIDEBAR ---------------- */}
         <aside className="flip-sidebar">
           <h2 className="sidebar-title">Filters</h2>
 
-          {/* Category */}
-          <div className="sidebar-block">
-            <h4>Category</h4>
-            {["Mobiles", "Electronics", "Fashion", "Home Appliances"].map(
-              (item, i) => (
-                <label key={i}>
-                  <input type="checkbox" /> {item}
-                </label>
-              )
-            )}
-          </div>
 
           {/* Price */}
           <div className="sidebar-block">
@@ -60,7 +51,7 @@ const ProductCategory = () => {
         {/* ---------------- PRODUCTS GRID ---------------- */}
         <main className="flip-products">
           <div className="products-header">
-            <h2>All Products</h2>
+            <h2 className="">Products</h2>
 
             <select className="sort-select">
               <option>Sort by: Relevance</option>
@@ -75,10 +66,11 @@ const ProductCategory = () => {
             {state?.allProducts?.map((product) => (
               <NavLink
                 to={`/product-detail/${product._id}`}
-                key={product._id}
                 className="flip-card"
               >
-                {/* Image */}
+                {/* ❤️ Wishlist Icon */}
+                <div className="wishlist-btn">♡</div>
+
                 <div className="flip-img-box">
                   <img
                     src={`http://localhost:5000/api/photo/get-all-photo/${product._id}`}
@@ -86,28 +78,20 @@ const ProductCategory = () => {
                   />
                 </div>
 
-                {/* Info */}
                 <div className="flip-info">
-                  <h3 className="product-title">{product.name}</h3>
-
-                  <div className="flip-rating">⭐ {product.rating}</div>
-
-                  <p className="flip-price">
-                    ₹{product.sp}
-                    <span className="mrp">₹{product.mrp}</span>
-                    <span className="discount">{product.discount}% off</span>
-                  </p>
-
                   <p className="brand">{product.brandname}</p>
+                  <p className="product-title">{product.name}</p>
+                  <p className="vegornon">{product.vegornon=="non-veg"?<span className="non">Non-Veg</span>:<span className="veg">Veg</span>}</p>
 
-                  <span
-                    className={`veg-badge ${
-                      product.vegornon === "veg" ? "veg" : "nonveg"
-                    }`}
-                  >
-                    {product.vegornon}
-                  </span>
+                  <div className="price-row">
+                    <span className="final-price">₹{Number(product.sp).toFixed(2)}</span>
+                    <span className="mrp">₹{product.mrp}</span>
+                    <span className="discount">{product.discount}% OFF</span>
+                  </div>
                 </div>
+
+                {/* Quick View Button */}
+                <button className="quick-view">Quick View</button>
               </NavLink>
             ))}
           </div>

@@ -31,6 +31,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         allProducts: action.payload,
+        allProductsBackup: action.payload
       };
     }
     case "GET_PRODUCT_DETAIL": {
@@ -162,35 +163,32 @@ const reducer = (state, action) => {
         allProduct: filterData,
       };
     }
-    case "FILTER_INPUT_VALUE": {
-      let filterProduct = [...state.allProduct];
-      console.log(state);
-      let filterData = [];
+  case "HANDLE_CATEGORY_FILTER": {
+  const original = [...state.allProductsBackup]; // ALWAYS from original
+  const { value, check } = action.payload;
 
-      // If value is empty, restore the original product list
-      if (state.inputname === "") {
-        return {
-          ...state,
-          // restore to original product list
-        };
-      } else {
-        // Filter products based on the value
-        filterData = filterProduct.filter((curEle) => {
-          return (
-            curEle.title
-              .toLowerCase()
-              .includes(state.inputname.toLowerCase()) ||
-            curEle.desc.toLowerCase().includes(state.input.toLowerCase())
-          );
-        });
-      }
+  console.log("checked:", check);
+  console.log("original:", original);
 
-      // Return updated state with filtered products
-      return {
-        ...state,
-        allProduct: filterData,
-      };
-    }
+  // UNCHECK → reset to original full list
+  if (check === false) {
+    return {
+      ...state,
+      allProducts: original
+    };
+  }
+
+  // CHECKED → filter
+  const filtered = original.filter(item => item.catname === value);
+
+  return {
+    ...state,
+    allProducts: filtered
+  };
+}
+
+
+
 
     // SET_ALL_PRODUCT;
     default: {

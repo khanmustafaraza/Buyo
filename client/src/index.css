@@ -10,6 +10,10 @@
   box-sizing: border-box;
   font-family: "Open Sans";
 }
+p {
+    margin-top: 0;
+    margin-bottom: 3px !important;
+}
 :root {
   --theme-color: #ff3399;
   --theme-light: rgba(255, 0, 149, 0.12);

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useCategory } from "../../../context/CategoryContext";
 
 const AllProducts = () => {
-  const { state, getAllProducts, categoryProduct } = useProduct();
+  const { state, getAllProducts, handleCategoryFilter } = useProduct();
   const {
     state: { categories },
   } = useCategory();
@@ -25,16 +25,23 @@ const AllProducts = () => {
           {/* Category */}
           <div className="sidebar-block">
             <h4>Category</h4>
-            {categories?.map((item, i) => (
-              <label key={i}>
-                <input
-                  type="checkbox"
-                  value={item.name}
-                  onChange={(e) => categoryProduct(e.target.value)}
-                />{" "}
-                {item.name}
-              </label>
-            ))}
+           {categories?.map((item, i) => (
+  <label key={i}>
+    <input
+      type="checkbox"
+      value={item.name}
+    
+     onChange={(e) => {
+  handleCategoryFilter(item.name, e.target.checked);
+}}
+
+    
+    />
+    {item.name}
+  </label>
+))}
+
+
           </div>
 
           {/* Price */}
@@ -66,7 +73,7 @@ const AllProducts = () => {
         {/* ---------------- PRODUCTS GRID ---------------- */}
         <main className="flip-products">
           <div className="products-header">
-            <h2>All Products</h2>
+            <h2 className="">Products</h2>
 
             <select className="sort-select">
               <option>Sort by: Relevance</option>
@@ -96,9 +103,10 @@ const AllProducts = () => {
                 <div className="flip-info">
                   <p className="brand">{product.brandname}</p>
                   <p className="product-title">{product.name}</p>
+                  <p className="vegornon">{product.vegornon=="non-veg"?<span className="non">Non-Veg</span>:<span className="veg">Veg</span>}</p>
 
                   <div className="price-row">
-                    <span className="final-price">₹{product.sp}</span>
+                    <span className="final-price">₹{Number(product.sp).toFixed(2)}</span>
                     <span className="mrp">₹{product.mrp}</span>
                     <span className="discount">{product.discount}% OFF</span>
                   </div>

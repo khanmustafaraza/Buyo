@@ -8,6 +8,7 @@ import { useAuth } from "./AuthContext";
 const ProductAppContext = createContext();
 const initialState = {
   allProducts: [],
+   allProductsBackup: [],
   product: {},
   productField: {
     catname: "",
@@ -195,11 +196,22 @@ const ProductAppProvider = ({ children }) => {
     }
   }
 
+  const handleCategoryFilter = (value,check)=>{
+    dispatch({
+      type:"HANDLE_CATEGORY_FILTER",
+      payload:{
+          value:value,
+          check:check
+      }
+    })
+  }
+
   return (
     <ProductAppContext.Provider
       value={{
         state,
         getProductDetail,
+        handleCategoryFilter,
 
         handleProductChange,
         handleProductSubmit,

@@ -19,6 +19,8 @@ const ProductDetails = () => {
   useEffect(() => {
     getProductDetail(id);
   }, [id]);
+  // new Array()
+  
 
   return (
     <MainLayout>
@@ -46,22 +48,16 @@ const ProductDetails = () => {
 
           <div className="pd-rating">
             <div className="score">{product.rating || 0} ★</div>
-            <div className="reviews">(1,234 ratings)</div>
+          
           </div>
 
           <div className="pd-price">
-            <span className="sp">₹{product.sp}</span>
+            <span className="sp">₹{Number(product.sp).toFixed(2)}</span>
             <span className="mrp">₹{product.mrp}</span>
             {product.discount > 0 && <span className="disc">{product.discount}% off</span>}
           </div>
 
-          <div className="pd-offers">
-            <h4>Offers</h4>
-            <ul>
-              <li>Bank Offer: 10% off on XYZ Bank cards</li>
-              <li>Special Price: Extra 5% off (price inclusive of discount)</li>
-            </ul>
-          </div>
+        
 
           <div className="pd-meta-grid">
             <div>
@@ -109,6 +105,11 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Related Products */}
+      
+
+      <h2>Top Related Products</h2>
     </MainLayout>
   );
 };
