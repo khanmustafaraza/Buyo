@@ -1,11 +1,37 @@
-/* GRID LAYOUT FOR FORM */
+/* ---------- FORM LAYOUT ---------- */
+.address-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  background: #fff;
+}
+
+.address-box {
+  max-width: 750px;
+  width: 100%;
+  background: #ffffff;
+  /* padding: 25px 30px; */
+  border-radius: 3px;
+  box-shadow: 0 0px 8px lightgray;
+}
+
+.title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  padding: 10px;
+}
+
 .address-form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
+  padding: 23px;
 }
 
-/* Make some fields full width */
+/* ---------- FULL-WIDTH ELEMENTS ---------- */
 .textarea-field,
 .address-type,
 .default-toggle,
@@ -13,54 +39,90 @@
   grid-column: span 2;
 }
 
-/* FIELD SAME STYLE */
+/* ---------- FIELD STYLING ---------- */
 .field {
   display: flex;
-  align-items: center;      /* vertically center everything */
-  gap: 10px;
-  border: 1px solid #ddd;
-  padding: 6px 10px;        /* reduced height, looks cleaner */
-  border-radius: 5px;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e3e3e3;
+  padding: 7px 12px;
+  border-radius: 3px;
   background: #fafafa;
-  transition: 0.2s;
-  height: 42px;             /* fixes misalignment — perfect match */
+  /* height: 46px; */
+  transition: all .25s ease;
+}
+
+.field:hover {
+  background: #ffffff;
+  border-color: #cfcfcf;
 }
 
 .field:focus-within {
-  border-color: #4285f4;
-  background: #fff;
+  border-color: #4a90e2;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
 }
 
-/* FULL WIDTH INPUTS INSIDE FIELD */
+/* Icons */
+.field .icon {
+  font-size: 18px;
+  color: #fa073b;
+}
+
+/* Inputs */
 .field input {
   flex: 1;
   border: none;
   background: transparent;
   font-size: 15px;
   outline: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #333;
 }
 
-/* TEXTAREA */
+/* ---------- TEXTAREA ---------- */
 .textarea-field {
   width: 100%;
-  height: 70px;
-  border: 1px solid #ddd;
+  border: 1px solid #e3e3e3;
   background: #fafafa;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 3px;
+  padding: 12px;
   resize: none;
-  transition: .2s;
+  min-height: 90px;
+  font-size: 15px;
+  transition: all .25s ease;
 }
 
 .textarea-field:focus {
-  border-color: #4285f4;
-  background: #fff;
+  background: #ffffff;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74,144,226,0.2);
 }
 
-/* RESPONSIVE FOR MOBILE */
+/* ---------- SAVE BUTTON ---------- */
+.save-btn {
+  margin-top: 10px;
+  width: 200px;
+  padding: 8px;
+  border: none;
+  border-radius: 3px;
+  background: var(--theme-color);
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .3s ease, transform .2s;
+}
+
+.save-btn:hover {
+  /* background: #3b79c4; */
+  transform: translateY(-1px);
+}
+
+.save-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 600px) {
   .address-form {
     grid-template-columns: 1fr;
@@ -73,4 +135,3 @@
     grid-column: span 1;
   }
 }
-

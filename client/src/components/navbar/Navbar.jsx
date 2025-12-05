@@ -129,7 +129,7 @@ const Navbar = () => {
                     </li>
                   )}
                   <li>
-                    <NavLink className="dropdown-item" to="/user-details">
+                    <NavLink className="dropdown-item" to="/add-new-address">
                       Address
                     </NavLink>
                   </li>

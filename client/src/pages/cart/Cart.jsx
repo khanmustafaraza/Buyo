@@ -32,7 +32,7 @@ const Cart = () => {
           {/* Address Section */}
           <div className="elegant-address">
             {address.length === 0 ? (
-              <button className="change-btn" onClick={() => navigate("/add-address")}>Add Address</button>
+              <button className="change-btn" onClick={() => navigate("/add-new-address")}>Add Address</button>
             ) : (
               address.map((cur, index) => (
                 <div
@@ -62,7 +62,7 @@ const Cart = () => {
               {carts.map((item) => (
                 <div key={item._id} className="elegant-card">
                   {/* Cross remove button */}
-                  <span className="elegant-remove-cross" onClick={() => handleCartItemDeleted(item._id)}>
+                  <span className="elegant-remove-cross" onClick={() => handleCartItemDeleted(item._id)} title="Remove Item">
                     &times;
                   </span>
 
@@ -87,7 +87,7 @@ const Cart = () => {
                     </div>
 
                     <div className="price-section">
-                      <span className="sp">₹ {item.product.sp}</span>
+                      <span className="sp">₹ {Number(item.product.sp).toFixed(2)}</span>
                       <span className="mrp">₹ {item.product.mrp}</span>
                     </div>
 
@@ -108,7 +108,7 @@ const Cart = () => {
 
               {/* Continue Shopping Button */}
               <button
-                className="change-btn"
+                className="continue-btn"
                 style={{ marginTop: "20px", width: "200px" }}
                 onClick={() => navigate("/products")}
               >
@@ -123,12 +123,12 @@ const Cart = () => {
                 <hr />
                 <div className="price-row">
                   <span>Price ({carts.length} items)</span>
-                  <span>₹ {totalAmount}</span>
+                  <span>₹ {Number(totalAmount).toFixed(2)}</span>
                 </div>
-                <div className="price-row">
+                {/* <div className="price-row">
                   <span>Discount</span>
                   <span className="green">− ₹ 200</span>
-                </div>
+                </div> */}
                 <div className="price-row">
                   <span>Delivery Charges</span>
                   <span className="green">FREE</span>
@@ -136,7 +136,7 @@ const Cart = () => {
                 <hr />
                 <div className="price-row total">
                   <strong>Total Amount</strong>
-                  <strong>₹ {totalAmount - 200}</strong>
+                  <strong>₹ {Number(totalAmount).toFixed(2)}</strong>
                 </div>
                 <button className="elegant-place-btn">PLACE ORDER</button>
               </div>

@@ -40,7 +40,7 @@ const App = () => {
         pauseOnFocusLoss={false}
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
         transition={Bounce}
       />
       <Routes>
