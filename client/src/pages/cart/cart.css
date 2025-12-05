@@ -2,8 +2,6 @@
 .elegant-cart {
   padding: 2px 4px;
   background: #fff;
- 
- 
 }
 
 /* Address Section */
@@ -11,14 +9,14 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .address-card-strip {
   background: #fff;
   padding: 15px 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  border-radius: 3px;
+  box-shadow: 0 0px 8px lightgray;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,11 +26,11 @@
 
 .address-card-strip:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 0px 8px gray;
 }
 
 .activeBorder {
-  border: 2px solid #ff3f6c;
+  border: 1px solid #ff3f6c;
 }
 
 .address-details {
@@ -47,19 +45,19 @@
 }
 
 .edit-btn {
-  background: #f0ad4e;
-  color: #fff;
+  background: #000;
+  color: #fff !important;
   padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+  border-radius: 3px;
   border: none;
   cursor: pointer;
 }
 
 .delete-btn {
-  background: #d9534f;
-  color: #fff;
+  background: var(--theme-color);
+  color: #fff !important;
   padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+  border-radius: 3px;
   border: none;
   cursor: pointer;
 }
@@ -76,7 +74,6 @@
   width: 150px;
   margin: 4px 0;
   margin-left: auto;
-  
 }
 
 .change-btn:hover {
@@ -296,8 +293,8 @@
   margin-top: 20px;
   transition: 0.3s ease;
 }
-.continue-btn{
-   background: var(--theme-color);
+.continue-btn {
+  background: var(--theme-color);
   color: #fff;
   border: none;
   padding: 10px 18px;
