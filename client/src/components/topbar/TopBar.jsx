@@ -1,6 +1,6 @@
 import React from "react";
 import { FaSearch, FaShoppingCart, FaBell, FaUserCircle } from "react-icons/fa";
-import "./topBar.css";
+import "./topbar.css";
 
 const TopBar = () => {
   return (
