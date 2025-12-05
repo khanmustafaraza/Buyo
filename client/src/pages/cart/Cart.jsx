@@ -92,9 +92,7 @@ const Cart = () => {
       name: "My Store",
       description: "Order Payment",
       image: "https://yourwebsite.com/logo.png", // your logo
-      theme: {
-        color: "#1E90FF", // change theme color
-      },
+
       prefill: {
         name: "John Doe",
         email: "john@example.com",
