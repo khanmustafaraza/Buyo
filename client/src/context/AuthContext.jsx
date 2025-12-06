@@ -219,7 +219,7 @@ const AuthAppProvider = ({ children }) => {
 
     if (data.success) {
       alert("Address saved successfully!");
-      console.log("Address saved:", data);
+    
 
       // OPTIONAL — CLEAR FORM
       // setState({ ...state, address: {} });

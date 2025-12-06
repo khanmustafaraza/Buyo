@@ -6,20 +6,20 @@ import { useCart } from "../../context/CartContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { FaPlus } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 
 const Cart = () => {
-  // async function loadRazorpayScript() {
-  //   return new Promise((resolve) => {
-  //     if (window.Razorpay) return resolve(true);
-  //     const script = document.createElement("script");
-  //     script.src = "https://checkout.razorpay.com/v1/checkout.js";
-  //     script.onload = () => resolve(true);
-  //     script.onerror = () => resolve(false);
-  //     document.body.appendChild(script);
-  //   });
-  // }
+    const navigate = useNavigate();
+    const {state:{token} }=  useAuth();
+    console.log(token)
+  // todo active address state 
   const [activeAddress, setActiveAddress] = useState(null);
+
+  // ! user Address inside addobje
   const [addressObj, setAddressObj] = useState(null);
+
+  
 
   const {
     carts,
@@ -30,8 +30,9 @@ const Cart = () => {
     cartDelete,
     address,
   } = useCart();
-  const navigate = useNavigate();
 
+
+  // ? total amount cart reducer
   const totalAmount = carts.reduce(
     (acc, item) => acc + item.product.sp * item.quantity,
     0
@@ -143,6 +144,41 @@ const Cart = () => {
     rzp.open();
   };
 
+  // todo handle delete address 
+
+
+ const handleDeleteAddress = async (cur, index) => {
+  try {
+   
+
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/address/delete-address`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          cur,
+          index,
+        },
+      }
+    );
+
+    if (data.success) {
+      toast.success("Address deleted successfully!");
+     
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to delete address.");
+  }
+};
+
+useEffect(()=>{
+
+},[handleDeleteAddress])
+
+
   return (
     <>
       <Navbar />
@@ -174,16 +210,21 @@ const Cart = () => {
                   <div className="address-details">
                     {cur.houseNo}, {cur.street}, {cur.city}, {cur.state} -{" "}
                     {cur.pincode}
+                    
                   </div>
+                  
                   <div className="address-actions">
-                    <NavLink to="/add-new-address">
-                      <button className="edit-btn">Add New Address</button>
-                    </NavLink>
-                    <button className="delete-btn">Delete</button>
+                   
+                    <button className="delete-btn"  onClick={()=>handleDeleteAddress(cur,index)}>Delete</button>
                   </div>
                 </div>
               ))
             )}
+            {
+              !address.length == 0 && <NavLink to="/add-new-address">
+                      <button className="edit-btn"><FaPlus/> Address</button>
+                    </NavLink>
+            }
           </div>
 
           {/* Cart & Summary */}
@@ -287,7 +328,7 @@ const Cart = () => {
                 <div className="price-row">
                   <span>Delivery Charges</span>
                   <span className="green">
-                    {totalAmount < 500 ? "10" : "FREE"}
+                    ₹{totalAmount < 500 ? "10" : "FREE"}
                   </span>
                 </div>
                 <hr />

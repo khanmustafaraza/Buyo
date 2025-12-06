@@ -85,6 +85,26 @@ const CartAppProvider = ({ children }) => {
    useEffect(() => {
     getAllCartItems();
   }, []);
+  // Increase quantity in frontend only
+const increaseQty = (productId) => {
+  setCart(prev =>
+    prev.map(c =>
+      c._id === productId ? { ...c, quantity: c.quantity + 1 } : c
+    )
+  );
+};
+
+// Decrease quantity in frontend only
+const decreaseQty = (productId) => {
+  setCart(prev =>
+    prev.map(c =>
+      c._id === productId
+        ? { ...c, quantity: c.quantity > 1 ? c.quantity - 1 : 1 }
+        : c
+    )
+  );
+};
+
 
   return (
     <CartAppContext.Provider
@@ -96,7 +116,9 @@ const CartAppProvider = ({ children }) => {
         carts,
         handleCartItemDeleted,
         cartDelete,
-        address
+        address,
+        decreaseQty,
+        increaseQty
       }}
     >
       {children}

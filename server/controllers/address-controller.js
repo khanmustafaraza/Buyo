@@ -39,5 +39,34 @@ return res.json({
     next({ message: "Error while creating account", statusCode: 500 });
   }
 };
+const deleteAddress = async (req, res) => {
+  try {
+    const { index } = req.body; // index sent from frontend
+    const userId = req.user._id; // user id from auth middleware
 
-module.exports ={ addAddress}
+    const user = await Register.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    if (index < 0 || index >= user.addresses.length) {
+      return res.status(400).json({ success: false, message: "Invalid index" });
+    }
+
+    // Remove the address at given index
+    user.addresses.splice(index, 1);
+
+    // Save changes
+    await user.save();
+
+    res.json({ success: true, message: "Address deleted successfully", addresses: user.addresses });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
+
+module.exports ={ addAddress,deleteAddress}
