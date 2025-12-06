@@ -10,16 +10,13 @@ import { FaPlus } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 
 const Cart = () => {
-    const navigate = useNavigate();
-    const {state:{token} }=  useAuth();
-    console.log(token)
-  // todo active address state 
+  const navigate = useNavigate();
+  const { handleDeleteAddress } = useAuth();
+
+  // todo active address state
   const [activeAddress, setActiveAddress] = useState(null);
 
   // ! user Address inside addobje
-  const [addressObj, setAddressObj] = useState(null);
-
-  
 
   const {
     carts,
@@ -29,8 +26,10 @@ const Cart = () => {
     getAllCartItems,
     cartDelete,
     address,
+    setPayMentMethod,
+    handleOrder,
+    setAddressObj,
   } = useCart();
-
 
   // ? total amount cart reducer
   const totalAmount = carts.reduce(
@@ -47,142 +46,9 @@ const Cart = () => {
     setAddressObj(cur);
   };
 
-  const handleOrder = async () => {
-    if (!addressObj) {
-      toast.error("Please provide the address");
-      return;
-    }
-
-    try {
-      // Prepare order structure to send to backend
-      const orderPayload = {
-        items: carts.map((item) => ({
-          pid: item.pid,
-
-          price: item.price,
-          quantity: item.quantity,
-          // image: item.image,
-        })),
-        address: addressObj,
-
-        finalAmount: totalAmount,
-        paymentStatus: "PENDING",
-      };
-      console.log(orderPayload);
-
-      // Call backend
-      const response = await axios.post(
-        "http://localhost:5000/api/order/create",
-        orderPayload
-      );
-
-      if (response.data?.razorpayOrderId) {
-        openRazorpayPopup(response.data); // open popup
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
-  const openRazorpayPopup = (orderData) => {
-    const options = {
-      key: orderData.key, // from backend (your RAZORPAY_KEY_ID)
-      amount:
-        3 * 100 || orderData.amount_in_subunits || orderData.finalAmount * 100,
-      currency: orderData.currency || "INR",
-      name: "My Store",
-      description: "Order Payment",
-      image: "https://yourwebsite.com/logo.png", // your logo
-
-      prefill: {
-        name: "John Doe",
-        email: "john@example.com",
-        contact: "9876543210",
-      },
-      notes: {
-        address: "User billing address",
-      },
-      theme: {
-        color: "#0f172a",
-      },
-      handler: async function (response) {
-        console.log("responso", response);
-        // response: { razorpay_payment_id, razorpay_order_id, razorpay_signature }
-        try {
-          // Send to backend to verify signature and update DB
-          const verifyRes = await axios.post(
-            "http://localhost:5000/api/payment/verify",
-            {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              orderDbId: orderData.orderDbId, // optional helpful id from your DB
-            }
-          );
-
-          if (verifyRes.data?.success) {
-            toast.success("Payment successful! Order confirmed.");
-            // redirect to success page or clear cart
-            // e.g. navigate(`/order-success/${verifyRes.data.orderId}`)
-          } else {
-            toast.error("Payment verification failed on server.");
-          }
-        } catch (err) {
-          console.error("verify error:", err);
-          toast.error("Server error during payment verification.");
-        }
-      },
-      modal: {
-        ondismiss: function () {
-          // user closed popup without finishing payment
-          toast("Payment popup closed.");
-        },
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
-
-  // todo handle delete address 
-
-
- const handleDeleteAddress = async (cur, index) => {
-  try {
-   
-
-    const { data } = await axios.delete(
-      `http://localhost:5000/api/address/delete-address`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          cur,
-          index,
-        },
-      }
-    );
-
-    if (data.success) {
-      toast.success("Address deleted successfully!");
-     
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to delete address.");
-  }
-};
-
-useEffect(()=>{
-
-},[handleDeleteAddress])
-
-
   return (
     <>
       <Navbar />
-
       {carts.length > 0 ? (
         <div className="elegant-cart">
           {/* Address Section */}
@@ -210,21 +76,26 @@ useEffect(()=>{
                   <div className="address-details">
                     {cur.houseNo}, {cur.street}, {cur.city}, {cur.state} -{" "}
                     {cur.pincode}
-                    
                   </div>
-                  
+
                   <div className="address-actions">
-                   
-                    <button className="delete-btn"  onClick={()=>handleDeleteAddress(cur,index)}>Delete</button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteAddress(cur, index)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))
             )}
-            {
-              !address.length == 0 && <NavLink to="/add-new-address">
-                      <button className="edit-btn"><FaPlus/> Address</button>
-                    </NavLink>
-            }
+            {!address.length == 0 && (
+              <NavLink to="/add-new-address">
+                <button className="edit-btn">
+                  <FaPlus /> Address
+                </button>
+              </NavLink>
+            )}
           </div>
 
           {/* Cart & Summary */}
@@ -321,17 +192,16 @@ useEffect(()=>{
                   <span>Price ({carts.length} items)</span>
                   <span>₹ {Number(totalAmount).toFixed(2)}</span>
                 </div>
-                {/* <div className="price-row">
-                  <span>Discount</span>
-                  <span className="green">− ₹ 200</span>
-                </div> */}
+
                 <div className="price-row">
                   <span>Delivery Charges</span>
                   <span className="green">
-                    ₹{totalAmount < 500 ? "10" : "FREE"}
+                    {totalAmount < 500 ? "₹ 10" : "FREE"}
                   </span>
                 </div>
+
                 <hr />
+
                 <div className="price-row total">
                   <strong>Total Amount</strong>
                   <strong>
@@ -341,9 +211,37 @@ useEffect(()=>{
                       : Number(totalAmount).toFixed(2)}
                   </strong>
                 </div>
+
+                {/* BEAUTIFUL RADIO BUTTONS */}
+                <div className="payment-wrap">
+                  <p className="label">Select Payment Method</p>
+
+                  <label className="custom-radio">
+                    <input
+                      type="radio"
+                      value="cash on deliver"
+                      name="payment"
+                      onChange={(e) => setPayMentMethod(e.target.value)}
+                    />
+                    <span className="checkmark"></span>
+                    Cash On Delivery
+                  </label>
+
+                  <label className="custom-radio">
+                    <input
+                      type="radio"
+                      value="online payment"
+                      name="payment"
+                      onChange={(e) => setPayMentMethod(e.target.value)}
+                    />
+                    <span className="checkmark"></span>
+                    Pay Online
+                  </label>
+                </div>
+
                 <button
                   className="elegant-place-btn"
-                  onClick={() => handleOrder(carts)}
+                  onClick={() => handleOrder(totalAmount + 10)}
                 >
                   PLACE ORDER
                 </button>

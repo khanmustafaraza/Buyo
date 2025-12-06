@@ -5,8 +5,6 @@ const Register = require("../models/register-model");
 const createCart = async (req, res) => {
   try {
     const { pid, quantity, price } = req.body;
-   
-
     const id = req.user._id; // FIX 1
 
     if (!pid || !quantity || !price) {
@@ -26,7 +24,7 @@ const createCart = async (req, res) => {
       ],
     };
     const exsistCart = await Cart.findOne(isMatched);
-   
+
     if (exsistCart) {
       // return res.status(404).json({
       //   success: false,
@@ -70,8 +68,8 @@ const createCart = async (req, res) => {
 
 const getAllCartItems = async (req, res) => {
   const id = req.user._id;
-  const user = await Register.findById({_id:id},{password:0})
- 
+  const user = await Register.findById({ _id: id }, { password: 0 });
+
   const cartItems = await Cart.aggregate([
     {
       $match: { userId: new mongoose.Types.ObjectId(id) },
@@ -86,10 +84,6 @@ const getAllCartItems = async (req, res) => {
       },
     },
 
-   
-
-   
-
     { $unwind: { path: "$product", preserveNullAndEmptyArrays: true } },
   ]);
 
@@ -99,36 +93,32 @@ const getAllCartItems = async (req, res) => {
       success: true,
       msg: "Items Fectched Succesfully",
       carts: cartItems,
-      user :user.addresses
+      user: user.addresses,
     });
   }
 };
 
-
-const deleteCartItem =  async(req,res)=>{
+const deleteCartItem = async (req, res) => {
   try {
-  const id = req.user._id;
-  const cartId =  req.params.id;
-  console.log(id,cartId)
-  const isMatched = {
-    $and :[
-      {
-        _id:cartId,
-        userId:id
-      }
-    ]
-  }
-  const deletedCart = await Cart.deleteOne(isMatched)
-  if(deletedCart){
-return res.status(200).json({
-    success:true,
-    msg:"Item Deleted Successfully"
-  })
-  }
-  
-  } catch (error) {
-    
-  }
-}
+    const id = req.user._id;
+    const cartId = req.params.id;
+    console.log(id, cartId);
+    const isMatched = {
+      $and: [
+        {
+          _id: cartId,
+          userId: id,
+        },
+      ],
+    };
+    const deletedCart = await Cart.deleteOne(isMatched);
+    if (deletedCart) {
+      return res.status(200).json({
+        success: true,
+        msg: "Item Deleted Successfully",
+      });
+    }
+  } catch (error) {}
+};
 
-module.exports = { createCart, getAllCartItems,deleteCartItem };
+module.exports = { createCart, getAllCartItems, deleteCartItem };

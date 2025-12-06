@@ -96,7 +96,6 @@ const AuthAppProvider = ({ children }) => {
       );
 
       if (data.success) {
-        console.log(data);
         dispatch({
           type: "SET_SUCCESS",
         });
@@ -124,9 +123,8 @@ const AuthAppProvider = ({ children }) => {
           password,
         }
       );
-      console.log(data.token);
+
       if (data.success) {
-        console.log(data.token);
         dispatch({
           type: "SET_TOKEN",
           payload: data.token,
@@ -141,9 +139,7 @@ const AuthAppProvider = ({ children }) => {
   };
   // ! ==============set token to local storage
 
- 
   const handleAddressChange = (e) => {
-    console.log(e.target);
     dispatch({
       type: "HANDLE_ADDRESS_CHANGE",
       payload: {
@@ -153,50 +149,18 @@ const AuthAppProvider = ({ children }) => {
     });
   };
 
- const handleAddressSubmit = async (e) => {
-  e.preventDefault();
+  const handleAddressSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const { address, token } = state;
+    try {
+      const { address, token } = state;
 
-    if (!token) {
-      console.error("No token provided");
-      return;
-    }
+      if (!token) {
+        console.error("No token provided");
+        return;
+      }
 
-    const {
-      fullName,
-      mobile,
-      email,
-      houseNo,
-      street,
-      city,
-      state: userState,
-      pincode,
-      landmark,
-      instructions,
-      addressType,
-      isDefault,
-    } = address;
-
-    // SIMPLE VALIDATION (recommended)
-    if (
-      !fullName ||
-      !mobile ||
-      !email ||
-      !houseNo ||
-      !street ||
-      !city ||
-      !userState ||
-      !pincode
-    ) {
-      alert("Please fill all required fields.");
-      return;
-    }
-
-    const { data } = await axios.post(
-      "http://localhost:5000/api/address/add-address",
-      {
+      const {
         fullName,
         mobile,
         email,
@@ -209,26 +173,82 @@ const AuthAppProvider = ({ children }) => {
         instructions,
         addressType,
         isDefault,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      } = address;
+
+      // SIMPLE VALIDATION (recommended)
+      if (
+        !fullName ||
+        !mobile ||
+        !email ||
+        !houseNo ||
+        !street ||
+        !city ||
+        !userState ||
+        !pincode
+      ) {
+        alert("Please fill all required fields.");
+        return;
       }
-    );
 
-    if (data.success) {
-      alert("Address saved successfully!");
-    
+      const { data } = await axios.post(
+        "http://localhost:5000/api/address/add-address",
+        {
+          fullName,
+          mobile,
+          email,
+          houseNo,
+          street,
+          city,
+          state: userState,
+          pincode,
+          landmark,
+          instructions,
+          addressType,
+          isDefault,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      // OPTIONAL — CLEAR FORM
-      // setState({ ...state, address: {} });
+      if (data.success) {
+        alert("Address saved successfully!");
+
+        // OPTIONAL — CLEAR FORM
+        // setState({ ...state, address: {} });
+      }
+    } catch (error) {
+      console.error("Error saving address:", error);
+      alert("Something went wrong while saving the address.");
     }
-  } catch (error) {
-    console.error("Error saving address:", error);
-    alert("Something went wrong while saving the address.");
-  }
-};
+  };
+  const handleDeleteAddress = async (cur, index) => {
+    // console.log("first");
+    const { token } = state;
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/address/delete-address`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            cur,
+            index,
+          },
+        }
+      );
+
+      if (data.success) {
+        toast.success("Address deleted successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete address.");
+    }
+  };
 
   return (
     <AuthAppContext.Provider
@@ -238,8 +258,9 @@ const AuthAppProvider = ({ children }) => {
         handleRegisterSubmit,
         handleLoginChange,
         handleLoginSubmit,
-       handleAddressSubmit,
+        handleAddressSubmit,
         handleAddressChange,
+        handleDeleteAddress,
       }}
     >
       {children}

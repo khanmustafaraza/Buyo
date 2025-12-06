@@ -89,6 +89,7 @@ const AllProducts = () => {
           <div className="flip-grid">
             {state?.allProducts?.map((product) => (
               <NavLink
+                key={product._id}
                 to={`/product-detail/${product._id}`}
                 className="flip-card"
               >

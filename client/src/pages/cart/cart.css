@@ -310,6 +310,64 @@
 .elegant-place-btn:hover {
   background: #e0325a;
 }
+.payment-wrap {
+  margin-top: 15px;
+}
+
+.payment-wrap .label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.custom-radio {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  margin: 6px 0;
+  font-size: 15px;
+  gap: 10px;
+  color: #555;
+}
+
+.custom-radio input {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+
+.custom-radio input:checked + .checkmark {
+  border-color: #4a90e2;
+  background: #4a90e2;
+}
+
+.checkmark::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: scale(0) translate(-50%, -50%);
+  transition: 0.3s ease-in-out;
+}
+
+.custom-radio input:checked + .checkmark::after {
+  transform: scale(1) translate(-50%, -50%);
+}
 
 /* Responsive */
 @media screen and (max-width: 992px) {

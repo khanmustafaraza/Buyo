@@ -43,7 +43,7 @@ app.use("/api/photo", photoRouter);
 app.use("/api/cart", authMiddleware, cartRouter);
 app.use("/api/address", authMiddleware, addressRouter);
 app.use("/api/category-product-filter", authMiddleware, categoryProductRouter);
-app.use("/api/order", orderRouter);
+app.use("/api/order", authMiddleware, orderRouter);
 
 // * this is the root for home page
 app.get("/", (req, res) => {
