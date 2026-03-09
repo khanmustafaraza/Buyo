@@ -11,8 +11,8 @@ const Testimonials = () => {
           Trusted by thousands of hardware buyers
         </p>
 
-        <div className="row g-4 mt-3">
-          <div className="col-md-4">
+        <div className="row g-4 mt-3 justify-content-center ">
+          <div className="col-md-3 ">
             <div className="testimonial-card">
               <div className="stars">
                 <FaStar />
@@ -28,7 +28,7 @@ const Testimonials = () => {
             </div>
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-3 mx-1">
             <div className="testimonial-card">
               <div className="stars">
                 <FaStar />
@@ -44,7 +44,7 @@ const Testimonials = () => {
             </div>
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-3 ">
             <div className="testimonial-card">
               <div className="stars">
                 <FaStar />

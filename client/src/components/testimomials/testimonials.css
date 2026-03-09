@@ -3,18 +3,13 @@
 ====================================== */
 
 .testimonials-section {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 0, 149, 0.05),
-    rgba(255, 255, 255, 1)
-  );
+ 
   padding: 90px 0;
 }
 
 /* Title */
 .testimonials-title {
   font-size: 2.6rem;
-  font-weight: 800;
   color: #202020;
   margin-bottom: 10px;
   letter-spacing: 0.5px;
@@ -26,7 +21,7 @@
   content: "";
   width: 90px;
   height: 4px;
-  background: rgb(255, 0, 149);
+  background: var(--theme-color);
   display: block;
   margin: 12px auto 0;
   border-radius: 30px;
@@ -37,26 +32,26 @@
 .testimonial-card {
   background: rgba(255, 255, 255, 0.75);
   padding: 30px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 0, 149, 0.15);
-  backdrop-filter: blur(10px);
+  border-radius: 3px;
+  /* border: 1px solid rgba(255, 0, 149, 0.15); */
+  /* backdrop-filter: blur(10px); */
 
-  box-shadow: 0 6px 22px rgba(255, 0, 149, 0.08);
+  box-shadow: 0 0px 4px lightgray;
   transition: all 0.35s ease;
   animation: fadeInUp 0.9s ease forwards;
   opacity: 0;
 }
 
 /* Hover Glow */
-.testimonial-card:hover {
+/* .testimonial-card:hover {
   transform: translateY(-10px) scale(1.03);
   border-color: rgb(255, 0, 149);
   box-shadow: 0px 12px 32px rgba(255, 0, 149, 0.22);
-}
+} */
 
 /* Stars */
 .stars {
-  color: rgb(255, 0, 149);
+  color: var(--theme-color);
   margin-bottom: 14px;
   font-size: 1.3rem;
   display: flex;

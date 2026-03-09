@@ -59,7 +59,7 @@ const App = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/category-product-filter/:name" element={<ProductCategory />} />
-        <Route path="/account-dashboard" element={<AccountDashboard />} />
+        <Route path="/user-dashboard" element={<AccountDashboard />} />
 
         {/*✅ ================= todo all admin routes start ========== */}
         <Route path="/admin" element={<AdminRoute />}>
