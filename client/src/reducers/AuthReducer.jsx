@@ -38,14 +38,14 @@ const AuthReducer = (state, action) => {
         ...state,
         token: action.payload,
       };
-      case HANDLE_ADDRESS_CHANGE:
-        return{
-          ...state,
-          address:{
-            ...state.address,
-            [action.payload.name] :action.payload.value
-          }
-        }
+    case HANDLE_ADDRESS_CHANGE:
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          [action.payload.name]: action.payload.value,
+        },
+      };
 
     default:
       return state;

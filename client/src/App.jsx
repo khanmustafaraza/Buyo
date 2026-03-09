@@ -32,7 +32,7 @@ const App = () => {
     <>
       <ToastContainer
         position="top-center"
-        autoClose={1000}
+        autoClose={500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
@@ -42,6 +42,7 @@ const App = () => {
         pauseOnHover
         theme="light"
         transition={Bounce}
+        toastStyle={{ backgroundColor: "#fff", color: "#000" }}
       />
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -58,7 +59,10 @@ const App = () => {
         <Route path="/add-new-address" element={<Address />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/category-product-filter/:name" element={<ProductCategory />} />
+        <Route
+          path="/category-product-filter/:name"
+          element={<ProductCategory />}
+        />
         <Route path="/user-dashboard" element={<AccountDashboard />} />
 
         {/*✅ ================= todo all admin routes start ========== */}

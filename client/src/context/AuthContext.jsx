@@ -3,6 +3,7 @@ import reducer from "../reducers/AuthReducer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 const AuthAppContext = createContext();
 
@@ -87,12 +88,12 @@ const AuthAppProvider = ({ children }) => {
       const { register } = state;
       const { name, email, password } = register;
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/new-register",
+        `${VITE_API_URL}/api/auth/new-register`,
         {
           name,
           email,
           password,
-        }
+        },
       );
 
       if (data.success) {
@@ -121,10 +122,13 @@ const AuthAppProvider = ({ children }) => {
         {
           email,
           password,
-        }
+        },
       );
 
       if (data.success) {
+        dispatch({
+          type: "SET_SUCCESS",
+        });
         dispatch({
           type: "SET_TOKEN",
           payload: data.token,
@@ -210,7 +214,7 @@ const AuthAppProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (data.success) {
@@ -238,7 +242,7 @@ const AuthAppProvider = ({ children }) => {
             cur,
             index,
           },
-        }
+        },
       );
 
       if (data.success) {

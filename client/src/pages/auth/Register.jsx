@@ -4,86 +4,99 @@ import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import "./auth.css";
 import { useAuth } from "../../context/AuthContext";
+import { MdManageAccounts } from "react-icons/md";
+import { NavLink } from "react-router-dom";
+import Loader from "../../components/loader/Loader";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
- const {state,handleRegisterChange,handleRegisterSubmit} =  useAuth()
+  const { state, handleRegisterChange, handleRegisterSubmit } = useAuth();
 
   return (
-   <>
-   <Navbar/>
-    <div className="auth-container d-flex justify-content-center align-items-center">
-      <div className="auth-card">
-        <h2 className="auth-title">Create Account</h2>
-        <p className="auth-subtitle">Join us today!</p>
+    <>
+      <Navbar />
 
-        <form onSubmit={handleRegisterSubmit}>
-          {/* Name */}
-          <div className="mb-3 position-relative">
-            <label className="auth-label">Full Name</label>
-            <span className="auth-icon">
-              <FaUser />
-            </span>
-            <input
-              type="text"
-              name="name"
-              value = {state.register.name}
-              onChange={handleRegisterChange}
-              className="form-control auth-input with-icon"
-              placeholder="Enter your name"
-            />
+      <div className="auth-container d-flex justify-content-center align-items-center">
+        <div className="auth-card">
+          <div className="d-flex justify-content-center register-icon">
+            <MdManageAccounts className="fs-1 text-white" />
           </div>
+          {state && state?.isLoading && <Loader />}
+          <h2 className="auth-title">Create Account</h2>
+          <p className="auth-subtitle">Join us today!</p>
 
-          {/* Email */}
-          <div className="mb-3 position-relative">
-            <label className="auth-label">Email</label>
-            <span className="auth-icon">
-              <FaEnvelope />
-            </span>
-            <input
-              type="email"
-              name="email"
-               value = {state.register.email}
-              onChange={handleRegisterChange}
-              className="form-control auth-input with-icon"
-              placeholder="Enter email"
-            />
-          </div>
+          <form onSubmit={handleRegisterSubmit}>
+            {/* Name */}
+            <div className="mb-3 position-relative">
+              <label className="auth-label">Full Name</label>
+              <span className="auth-icon">
+                <FaUser />
+              </span>
+              <input
+                type="text"
+                name="name"
+                value={state.register.name}
+                onChange={handleRegisterChange}
+                className="form-control auth-input with-icon"
+                placeholder="Enter your name"
+              />
+            </div>
 
-          {/* Password */}
-          <div className="mb-3 position-relative">
-            <label className="auth-label">Password</label>
-            <span className="auth-icon">
-              <FaLock />
-            </span>
+            {/* Email */}
+            <div className="mb-3 position-relative">
+              <label className="auth-label">Email</label>
+              <span className="auth-icon">
+                <FaEnvelope />
+              </span>
+              <input
+                type="email"
+                name="email"
+                value={state.register.email}
+                onChange={handleRegisterChange}
+                className="form-control auth-input with-icon"
+                placeholder="Enter email"
+              />
+            </div>
 
-            <input
-             value = {state.register.password}
-             name="password"
-              onChange={handleRegisterChange}
-              type={showPassword ? "text" : "password"}
-              className="form-control auth-input with-icon"
-              placeholder="Enter password"
-            />
+            {/* Password */}
+            <div className="mb-3 position-relative">
+              <label className="auth-label">Password</label>
+              <span className="auth-icon">
+                <FaLock />
+              </span>
 
-            <span
-              className="auth-eye"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
-          </div>
+              <input
+                value={state.register.password}
+                name="password"
+                onChange={handleRegisterChange}
+                type={showPassword ? "text" : "password"}
+                className="form-control auth-input with-icon"
+                placeholder="Enter password"
+              />
 
-          <button className="auth-btn w-100">Register</button>
+              <span
+                className="auth-eye"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
 
-          <p className="auth-switch mt-3">
-            Already have an account? <a href="/login">Login</a>
-          </p>
-        </form>
+            <button className="auth-btn w-100">Register</button>
+
+            <p className="auth-switch mt-3">
+              Already have an account?{" "}
+              <NavLink to="/login">
+                <span className="text-decoration-underline text-primary">
+                  Login
+                </span>
+              </NavLink>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
-   <Footer/>
-   </>
+      <Footer />
+    </>
   );
 };
 

@@ -1,11 +1,12 @@
-.loader-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background-color: black;
-    margin: 10px auto;
-
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: black;
+  margin: 10px auto;
+  /* color: black; */
+  box-shadow: 0 0 4px lightgray;
 }

@@ -5,7 +5,7 @@
 .footer-section {
   background: var(--theme-color);
 
-  padding: 70px 25px 35px;
+  padding: 23px;
 }
 
 /* Layout */
@@ -52,6 +52,7 @@
   display: flex;
   gap: 2px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .footer-input {

@@ -6,18 +6,40 @@ import {
   FaShoppingCart,
   FaUser,
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CiMenuFries } from "react-icons/ci";
 import "./navbar.css";
 import { FaBagShopping } from "react-icons/fa6";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useProduct } from "../../context/ProductContext";
+import { toast } from "react-toastify";
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { state } = useAuth();
   const { carts } = useCart();
   const { handleInputFilter } = useProduct();
+  const handleDashBoard = async () => {
+    if (!state?.token) {
+      // toast.error("Token is Required");
+      return;
+    }
+    const res = await fetch(`${VITE_API_URL}/api/admin/admin-auth`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state?.token}`,
+      },
+    });
+    const data = await res.json();
+    if (data.success && data.isAdmin) {
+      navigate("/admin/admin-dashboard");
+    } else {
+      navigate("/user-dashboard");
+    }
+    // console.log("first");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
@@ -85,16 +107,26 @@ const Navbar = () => {
                 Contact
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                to="/user-dashboard"
-                className={({ isActive }) => {
-                  return isActive ? "isactive" : "nav-link";
-                }}
-              >
-                <FaUser className="icon-outline" title="Account" />
-              </NavLink>
-            </li>
+            {state?.token ? (
+              <li className="nav-item">
+                <FaUser
+                  className="icon-outline"
+                  title="Account"
+                  onClick={() => handleDashBoard()}
+                />
+              </li>
+            ) : (
+              <li className="nav-item nav-login-btn">
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) => {
+                    return isActive ? "isactive" : "nav-link ";
+                  }}
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
           </ul>
 
           {/* Right Icons */}
