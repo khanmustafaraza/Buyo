@@ -56,7 +56,7 @@ const CategoryAppProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (data.success) {
@@ -79,7 +79,7 @@ const CategoryAppProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (data.success) {
@@ -89,7 +89,7 @@ const CategoryAppProvider = ({ children }) => {
         });
       }
     } catch (error) {
-      toast.error(error?.response?.data?.msg || "Failed to load categories");
+      // toast.error(error?.response?.data?.msg || "Failed to load categories");
     }
   };
 
@@ -107,7 +107,7 @@ const CategoryAppProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (data.success) {
@@ -119,9 +119,9 @@ const CategoryAppProvider = ({ children }) => {
       toast.error("Delete failed");
     }
   };
-useEffect(()=>{
-getAllCategories()
-},[])
+  useEffect(() => {
+    getAllCategories();
+  }, []);
   return (
     <CategoryAppContext.Provider
       value={{

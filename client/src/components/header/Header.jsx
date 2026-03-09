@@ -7,19 +7,19 @@ const Header = () => {
     <div className="marquee">
       <div className="marquee-content p-2">
         <div className="item">
-          <FaTruck className="icon" /> Free Shipping on Orders Above ₹500
+          <FaTruck className="header-icon" /> Free Shipping on Orders Above ₹500
         </div>
         <div className="item">
-          <FaTag className="icon" /> 50% Off on Summer Collection!
+          <FaTag className="header-icon" /> 50% Off on Summer Collection!
         </div>
         <div className="item">
-          <FaHeadset className="icon" /> 24/7 Customer Support Available
+          <FaHeadset className="header-icon" /> 24/7 Customer Support Available
         </div>
         <div className="item">
-          <FaCreditCard className="icon" /> Easy & Secure Payments
+          <FaCreditCard className="header-icon" /> Easy & Secure Payments
         </div>
         <div className="item">
-          <FaTag className="icon" /> Limited Time Offer: Grab Now!
+          <FaTag className="header-icon" /> Limited Time Offer: Grab Now!
         </div>
       </div>
     </div>

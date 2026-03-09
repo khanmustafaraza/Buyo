@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const Category = () => {
   const { state, getAllCategories } = useCategory();
+  const catData = [{}];
 
   useEffect(() => {
     getAllCategories();
@@ -13,7 +14,7 @@ const Category = () => {
   return (
     <section className="category-section">
       <div className="category-header container">
-        <h2>Shop by Category</h2>
+        <h2>Top Category</h2>
         <p>Find the best tools, accessories and products curated for you.</p>
       </div>
 

@@ -3,19 +3,20 @@
 ======================================*/
 
 .offer-banner-img {
-  background: url("banner.jpg") center/cover no-repeat;
-  height: 380px;
-  margin: 60px auto;
-  /* border-radius: 18px; */
+  background: url("https://images.unsplash.com/photo-1695527081782-c4ad3005417e?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+    center/cover no-repeat;
+  /* height: 580px; */
+
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 13px;
 }
 
 /* Frosted Glass Overlay */
-.overlay {
+.overlay4 {
   background: rgb(29, 28, 28, 0.7);
   backdrop-filter: blur(6px);
   /* border-radius: 18px; */
@@ -40,15 +41,16 @@
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
-  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.4);
+  /* text-shadow: 0px 2px 8px rgba(170, 165, 165, 0.4); */
   animation: slideUp 1s ease forwards;
+  color: white;
 }
 
 /* Subtitle */
 .banner-subtitle {
   font-size: 1.3rem;
   opacity: 0.9;
-  max-width: 550px;
+  /* max-width: 550px; */
   line-height: 1.6;
   animation: slideUp 1.2s ease forwards;
 }
@@ -56,17 +58,15 @@
 /* Button */
 .banner-btn {
   margin-top: 10px;
-  padding: 14px 38px;
+  padding: 12px 23px;
   font-size: 1.1rem;
-  font-weight: bold;
-  /* text-transform: uppercase; */
-  border-radius: 5px;
-  background: var(--theme-color);
+  border-radius: 2px;
+  background: var(--main-bg-color);
   border: none;
   color: white;
   cursor: pointer;
   transition: 0.3s ease;
-  box-shadow: 0px 0px 4px rgba(255, 0, 149, 0.35);
+  /* box-shadow: 0px 0px 4px var(--theme-color); */
   animation: fadeUp 1.4s ease;
 }
 
@@ -74,7 +74,8 @@
 .banner-btn:hover {
   /* transform: translateY(-4px) scale(1.05); */
   background: white;
-  color: #ff4bb1;
+  color: var(--theme-color);
+  border: 1px solid var(--theme-color);
 }
 
 /*======================================

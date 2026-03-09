@@ -49,15 +49,9 @@ const Footer = () => {
             <li>
               <a href="#">Products</a>
             </li>
-            <li>
-              <a href="#">About Us</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-            <li>
-              <a href="#">FAQs</a>
-            </li>
+            <li>{/* <a href="#">About Us</a> */}</li>
+            <li>{/* <a href="#">Contact</a> */}</li>
+            <li>{/* <a href="#">FAQs</a> */}</li>
           </ul>
         </div>
 
@@ -65,18 +59,18 @@ const Footer = () => {
         <div className="footer-card">
           <h5 className="footer-title">Connect With Us</h5>
           <div className="footer-social">
-            <a href="#" className="footer-icon">
+            {/* <a href="#" className="footer-icon">
               <FaFacebook />
-            </a>
-            <a href="#" className="footer-icon">
+            </a> */}
+            {/* <a href="#" className="footer-icon">
               <FaTwitter />
-            </a>
-            <a href="#" className="footer-icon">
+            </a> */}
+            {/* <a href="#" className="footer-icon">
               <FaWhatsapp />
-            </a>
-            <a href="#" className="footer-icon">
+            </a> */}
+            {/* <a href="#" className="footer-icon">
               <FaInstagram />
-            </a>
+            </a> */}
           </div>
           <div className="footer-contact">
             <FaEnvelope /> support@ekirana.com

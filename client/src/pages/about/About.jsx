@@ -59,7 +59,7 @@ const About = () => {
 
             <div className="story-img">
               <img
-                src="https://images.unsplash.com/photo-1581091012184-5c06a9880f5d"
+                src="https://imgs.search.brave.com/vx6FggCJUcbqYwichlaaeBpZ-h_4lLfaH8HZ_MeCrxs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Ymx1cmIuY29tL2Js/b2cvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjMvMDEvSG93LXRv/LXVzZS1waWN0dXJl/cy10by10ZWxsLWEt/c3RvcnlfNS0xMDI0/eDYwMC5qcGc"
                 alt="IronHardware Story"
               />
             </div>
